@@ -1,5 +1,5 @@
 package com.example.myrijks.data.model
-
+// TODO clean up model
 data class ArtObject(
     val links: Links,
     val id: String,
