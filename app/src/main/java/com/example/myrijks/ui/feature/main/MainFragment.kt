@@ -26,8 +26,10 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val adapter = ArtAdapter()
+        binding.recyclerViewCollection.adapter = adapter
         viewModel.collectionLiveData.observe(viewLifecycleOwner) {
-            binding.message.text = it.toString()
+            adapter.setItems(it)
         }
     }
 
