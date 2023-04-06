@@ -7,7 +7,7 @@ import okhttp3.Response
 
 class AuthenticationInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
-        val originalHttpUrl = chain.request().url()
+        val originalHttpUrl = chain.request().url
 
         val url = originalHttpUrl.newBuilder()
             .addQueryParameter("key", BuildConfig.API_KEY)
