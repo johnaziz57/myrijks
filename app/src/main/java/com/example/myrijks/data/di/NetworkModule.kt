@@ -15,7 +15,7 @@ object NetworkModule {
     @Provides
     fun providesPlacesService(): RijksService {
         val retrofit = Retrofit.Builder()
-            .baseUrl("")
+            .baseUrl("https://www.rijksmuseum.nl/")
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
         return retrofit.create(RijksService::class.java)
