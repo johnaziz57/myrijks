@@ -7,7 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.myrijks.R
+import com.example.myrijks.databinding.FragmentMainBinding
+import com.example.myrijks.ui.util.viewBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainFragment : Fragment() {
 
     companion object {
@@ -15,6 +19,7 @@ class MainFragment : Fragment() {
     }
 
     private val viewModel: MainViewModel by viewModels()
+    private val binding by viewBinding(FragmentMainBinding::bind)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,9 +35,9 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.collectionLiveData.observe(viewLifecycleOwner, {
-
-        })
+        viewModel.collectionLiveData.observe(viewLifecycleOwner) {
+            binding.message.text = it.toString()
+        }
     }
 
 }
