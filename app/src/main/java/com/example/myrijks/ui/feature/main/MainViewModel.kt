@@ -1,9 +1,9 @@
-package com.example.myrijks.ui.main
+package com.example.myrijks.ui.feature.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.myrijks.domain.CollectionInteractor
-import com.example.myrijks.ui.main.model.ArtViewData
+import com.example.myrijks.ui.feature.main.model.ArtViewData
 import com.example.myrijks.ui.viewmodel.BaseViewModel
 import com.example.myrijks.ui.viewmodel.SchedulerProvider
 import dagger.hilt.android.lifecycle.HiltViewModel

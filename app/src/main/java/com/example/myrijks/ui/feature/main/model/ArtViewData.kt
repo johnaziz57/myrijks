@@ -1,4 +1,4 @@
-package com.example.myrijks.ui.main.model
+package com.example.myrijks.ui.feature.main.model
 
 data class ArtViewData(
     val id: String,

@@ -1,4 +1,4 @@
-package com.example.myrijks.ui.main
+package com.example.myrijks.ui.feature.main
 
 import android.os.Bundle
 import android.view.LayoutInflater

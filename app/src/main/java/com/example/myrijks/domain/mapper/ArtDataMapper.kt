@@ -2,7 +2,7 @@ package com.example.myrijks.domain.mapper
 
 import com.example.myrijks.data.model.ArtObject
 import com.example.myrijks.data.model.Image
-import com.example.myrijks.ui.main.model.ArtViewData
+import com.example.myrijks.ui.feature.main.model.ArtViewData
 import javax.inject.Inject
 
 

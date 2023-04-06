@@ -2,7 +2,7 @@ package com.example.myrijks
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.myrijks.ui.main.MainFragment
+import com.example.myrijks.ui.feature.main.MainFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
