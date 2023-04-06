@@ -1,4 +1,4 @@
-package com.example.myrijks.data.di.module
+package com.example.myrijks.data.di
 
 import com.example.myrijks.data.repo.CollectionRepository
 import com.example.myrijks.data.repo.CollectionRepositoryImpl

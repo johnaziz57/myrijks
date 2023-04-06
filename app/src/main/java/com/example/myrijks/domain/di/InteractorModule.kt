@@ -1,4 +1,4 @@
-package com.example.myrijks.domain.di.module
+package com.example.myrijks.domain.di
 
 import com.example.myrijks.domain.CollectionInteractor
 import com.example.myrijks.domain.CollectionInteractorImpl
