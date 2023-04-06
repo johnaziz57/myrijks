@@ -1,6 +1,6 @@
-package com.example.myrijks.di.module
+package com.example.myrijks.data.di.module
 
-import com.example.myrijks.data.model.api.RijksService
+import com.example.myrijks.data.api.RijksService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
