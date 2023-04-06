@@ -1,6 +1,6 @@
 package com.example.myrijks.data.model
 
-data class Collection(
+data class ArtCollection(
     val count: Long,
     val artObjects: List<ArtObject>,
 )
