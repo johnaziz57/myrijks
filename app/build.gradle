@@ -5,6 +5,8 @@ plugins {
     id 'dagger.hilt.android.plugin'
 }
 
+apply from: "local.gradle"
+
 android {
     namespace 'com.example.myrijks'
     compileSdk 33
