@@ -21,6 +21,10 @@ class MainViewModel @Inject constructor(
     private val _collection: MutableLiveData<List<ArtViewData>> = MutableLiveData()
 
     fun loadCollection() {
-        collectionInteractor.getArtCollection()
+        executeWithSchedulers(
+            single = collectionInteractor.getArtCollection(),
+            onSuccess = { _collection.value = it },
+            onError = {}
+        )
     }
 }
