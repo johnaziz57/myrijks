@@ -12,7 +12,7 @@ class ArtDataMapper @Inject constructor() {
             id = artObject.id,
             title = artObject.title,
             objectNumber = artObject.objectNumber,
-            imageUrl = mapToImageUrl(artObject.webImage),
+            imageUrl = artObject.webImage?.let { mapToImageUrl(it) },
             principalOrFirstMaker = artObject.principalOrFirstMaker
         )
     }

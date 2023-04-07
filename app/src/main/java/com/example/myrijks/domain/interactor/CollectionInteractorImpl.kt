@@ -17,4 +17,12 @@ class CollectionInteractorImpl @Inject constructor(
         return collectionRepository.getCollection()
             .map { it.artObjects.map(artDataMapper::mapToArtViewData) }
     }
+
+    override fun getArtCollectionByAuthor(): Single<Map<String, List<ArtViewData>>> {
+        return collectionRepository.getCollection()
+            .map { artCollection ->
+                artCollection.artObjects.map(artDataMapper::mapToArtViewData)
+                    .groupBy { artViewData -> artViewData.principalOrFirstMaker }
+            }
+    }
 }

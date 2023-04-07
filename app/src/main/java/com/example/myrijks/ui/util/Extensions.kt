@@ -29,5 +29,5 @@ fun <T : ViewBinding> Fragment.viewBinding(factory: (View) -> T): ReadOnlyProper
         }
     }
 
-inline fun <T : ViewBinding> ViewGroup.viewBinding(factory: (LayoutInflater, ViewGroup, Boolean) -> T) =
+inline fun <T : ViewBinding> ViewGroup.viewBinding(factory: (layoutInflater: LayoutInflater, viewGroup: ViewGroup, isAttachToParent: Boolean) -> T) =
     factory(LayoutInflater.from(context), this, false)

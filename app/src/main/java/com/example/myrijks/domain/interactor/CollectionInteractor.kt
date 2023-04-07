@@ -5,4 +5,6 @@ import io.reactivex.rxjava3.core.Single
 
 interface CollectionInteractor {
     fun getArtCollection(): Single<List<ArtViewData>>
+
+    fun getArtCollectionByAuthor(): Single<Map<String, List<ArtViewData>>>
 }

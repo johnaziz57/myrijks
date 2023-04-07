@@ -10,7 +10,7 @@ data class ArtObject(
     val longTitle: String,
     val showImage: Boolean,
     val permitDownload: Boolean,
-    val webImage: Image,
-    val headerImage: Image,
+    val webImage: Image?,
+    val headerImage: Image?,
     val productionPlaces: List<String>,
 )
