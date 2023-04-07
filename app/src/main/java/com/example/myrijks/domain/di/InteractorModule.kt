@@ -1,7 +1,7 @@
 package com.example.myrijks.domain.di
 
-import com.example.myrijks.domain.CollectionInteractor
-import com.example.myrijks.domain.CollectionInteractorImpl
+import com.example.myrijks.domain.interactor.CollectionInteractor
+import com.example.myrijks.domain.interactor.CollectionInteractorImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

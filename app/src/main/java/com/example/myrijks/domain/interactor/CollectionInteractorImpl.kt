@@ -1,4 +1,4 @@
-package com.example.myrijks.domain
+package com.example.myrijks.domain.interactor
 
 import com.example.myrijks.data.repo.CollectionRepository
 import com.example.myrijks.domain.mapper.ArtDataMapper
