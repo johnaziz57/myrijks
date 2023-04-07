@@ -21,7 +21,6 @@ import org.mockito.kotlin.mock
 class CollectionRepositoryTest {
 
     companion object {
-
         @BeforeClass
         @JvmStatic
         fun before() {
@@ -59,14 +58,14 @@ class CollectionRepositoryTest {
 
     @Test
     fun `test get collection`() {
-        val collectionResponse = mock<ArtCollection>()
-        `when`(rijksService.getCollection()).thenReturn(Single.just(collectionResponse))
+        val artCollection = mock<ArtCollection>()
+        `when`(rijksService.getCollection()).thenReturn(Single.just(artCollection))
 
         val testObserver = collectionRepo.getCollection().test()
 
         testObserver
             .assertNoErrors()
             .assertComplete()
-        assertEquals(collectionResponse, testObserver.values()[0])
+        assertEquals(artCollection, testObserver.values()[0])
     }
 }
