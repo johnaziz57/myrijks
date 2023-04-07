@@ -1,7 +1,8 @@
-package com.example.myrijks.ui.feature.main
+package com.example.myrijks.ui.feature.main.adapter
 
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.myrijks.databinding.ItemArtBinding
@@ -68,9 +69,10 @@ class ArtAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun getItemCount(): Int = items.size
 
-    fun setItems(artList: List<ItemWrapper<*>>) {
-        this.items = artList
-        notifyDataSetChanged() //TODO change to diffutil
+    fun setItems(items: List<ItemWrapper<*>>) {
+        val result = DiffUtil.calculateDiff(ArtDiffUtilCallback(this.items, items), false)
+        this.items = items
+        result.dispatchUpdatesTo(this)
     }
 
     class ArtViewHolder(private val itemArtBinding: ItemArtBinding) :
