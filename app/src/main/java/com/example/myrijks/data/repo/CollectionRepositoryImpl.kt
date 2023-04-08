@@ -9,7 +9,7 @@ class CollectionRepositoryImpl @Inject constructor(
     private val rijksService: RijksService
 ) : CollectionRepository {
 
-    override fun getCollection(): Single<ArtCollection> {
-        return rijksService.getCollection()
+    override fun getCollection(pageIndex: Int): Single<ArtCollection> {
+        return rijksService.getCollection(pageIndex = pageIndex)
     }
 }

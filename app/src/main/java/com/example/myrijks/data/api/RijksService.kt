@@ -9,5 +9,8 @@ interface RijksService {
     // TODO configure culture by language
     // TODO configure sorting
     @GET("/api/en/collection")
-    fun getCollection(@Query("s") sort: String = "artist"): Single<ArtCollection>
+    fun getCollection(
+        @Query("s") sort: String = "artist",
+        @Query("p") pageIndex: Int
+    ): Single<ArtCollection>
 }

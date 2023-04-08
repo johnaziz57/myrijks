@@ -14,6 +14,7 @@ import org.junit.BeforeClass
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito.`when`
+import org.mockito.Mockito.any
 import org.mockito.Mockito.spy
 import org.mockito.MockitoAnnotations
 import org.mockito.kotlin.mock
@@ -59,9 +60,13 @@ class CollectionRepositoryTest {
     @Test
     fun `test get collection`() {
         val artCollection = mock<ArtCollection>()
-        `when`(rijksService.getCollection()).thenReturn(Single.just(artCollection))
+        `when`(rijksService.getCollection(sort = any(), pageIndex = any())).thenReturn(
+            Single.just(
+                artCollection
+            )
+        )
 
-        val testObserver = collectionRepo.getCollection().test()
+        val testObserver = collectionRepo.getCollection(1).test()
 
         testObserver
             .assertNoErrors()

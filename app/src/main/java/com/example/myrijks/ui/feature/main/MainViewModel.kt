@@ -23,22 +23,54 @@ class MainViewModel @Inject constructor(
         get() = _collection
 
     private val _collection: MutableLiveData<List<ItemWrapper<*>>> = MutableLiveData()
+    private val collectionMap: MutableMap<String, List<ArtViewData>> = mutableMapOf()
+    private var pageIndex = 1
+    private var isLoading = false
 
-    fun loadCollection() {
+    fun loadNextCollection() {
+        if (isLoading) return
+        isLoading = true
         executeWithSchedulers(
-            single = collectionInteractor.getArtCollectionByAuthor(),
-            onSuccess = { _collection.value = mapToItemWrapper(it) },
-            onError = {}
+            single = collectionInteractor.getArtCollectionByAuthor(pageIndex),
+            onSuccess = {
+                val collection = mapToItemWrapper(it, collectionMap)
+                synchronizeCollectionMap(it, collectionMap)
+                val newCollection = mutableListOf<ItemWrapper<*>>()
+                newCollection.addAll(_collection.value ?: emptyList())
+                newCollection.addAll(collection)
+                _collection.value = newCollection
+                pageIndex++
+                isLoading = false
+            },
+            onError = { isLoading = false }
         )
     }
 
-    private fun mapToItemWrapper(artByAuthor: Map<String, List<ArtViewData>>): List<ItemWrapper<*>> {
-        return artByAuthor.flatMap { entry ->
-            mutableListOf<ItemWrapper<*>>(
-                MakerItemWrapper(MakerViewData(entry.key)),
-            ).let {
-                it.addAll(entry.value.map { ArtItemWrapper(it) })
-                it
+    private fun mapToItemWrapper(
+        newCollectionMap: Map<String, List<ArtViewData>>,
+        currentCollectionMap: Map<String, List<ArtViewData>>
+    ): List<ItemWrapper<*>> {
+        return newCollectionMap.flatMap { entry ->
+            val result = entry.value.map { ArtItemWrapper(it) }.toMutableList<ItemWrapper<*>>()
+            if (currentCollectionMap.containsKey(entry.key).not()) {
+                result.add(0, MakerItemWrapper(MakerViewData(entry.key)))
+            }
+            result
+        }
+    }
+
+    private fun synchronizeCollectionMap(
+        newCollectionMap: Map<String, List<ArtViewData>>,
+        currentCollectionMap: MutableMap<String, List<ArtViewData>>
+    ) {
+        newCollectionMap.entries.forEach { entry ->
+            if (currentCollectionMap.containsKey(entry.key)) {
+                val collectionList =
+                    currentCollectionMap[entry.key]?.toMutableList() ?: mutableListOf()
+                collectionList.addAll(entry.value)
+                currentCollectionMap[entry.key] = collectionList.toList()
+            } else {
+                currentCollectionMap[entry.key] = entry.value
             }
         }
     }

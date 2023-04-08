@@ -4,5 +4,5 @@ import com.example.myrijks.data.model.ArtCollection
 import io.reactivex.rxjava3.core.Single
 
 interface CollectionRepository {
-    fun getCollection(): Single<ArtCollection>
+    fun getCollection(pageIndex: Int): Single<ArtCollection>
 }

@@ -14,12 +14,12 @@ class CollectionInteractorImpl @Inject constructor(
     private val artDataMapper: ArtDataMapper
 ) : CollectionInteractor {
     override fun getArtCollection(): Single<List<ArtViewData>> {
-        return collectionRepository.getCollection()
+        return collectionRepository.getCollection(1)
             .map { it.artObjects.map(artDataMapper::mapToArtViewData) }
     }
 
-    override fun getArtCollectionByAuthor(): Single<Map<String, List<ArtViewData>>> {
-        return collectionRepository.getCollection()
+    override fun getArtCollectionByAuthor(pageIndex: Int): Single<Map<String, List<ArtViewData>>> {
+        return collectionRepository.getCollection(pageIndex)
             .map { artCollection ->
                 artCollection.artObjects.map(artDataMapper::mapToArtViewData)
                     .groupBy { artViewData -> artViewData.principalOrFirstMaker }

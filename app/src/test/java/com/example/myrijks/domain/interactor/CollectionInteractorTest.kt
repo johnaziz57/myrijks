@@ -18,6 +18,7 @@ import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.Mockito.`when`
+import org.mockito.Mockito.anyInt
 import org.mockito.MockitoAnnotations
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
@@ -71,16 +72,22 @@ class CollectionInteractorTest {
             on { artObjects } doReturn listOf(artObject)
         }
 
-        val artViewData = mock<ArtViewData>()
+        val artViewData = mock<ArtViewData> {
+            on { principalOrFirstMaker } doReturn "artist"
+        }
 
-        `when`(collectionRepository.getCollection()).thenReturn(Single.just(artCollection))
+        `when`(collectionRepository.getCollection(pageIndex = anyInt())).thenReturn(
+            Single.just(
+                artCollection
+            )
+        )
         `when`(artDataMapper.mapToArtViewData(artObject)).thenReturn(artViewData)
 
-        val testObserver = collectionInteractor.getArtCollection().test()
+        val testObserver = collectionInteractor.getArtCollectionByAuthor(1).test()
 
         testObserver
             .assertNoErrors()
             .assertComplete()
-        Assert.assertEquals(listOf(artViewData), testObserver.values()[0])
+        Assert.assertEquals(mapOf("artist" to listOf(artViewData)), testObserver.values()[0])
     }
 }
