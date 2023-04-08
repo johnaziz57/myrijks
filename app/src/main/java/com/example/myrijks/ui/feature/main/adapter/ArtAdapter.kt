@@ -14,7 +14,8 @@ import com.example.myrijks.ui.feature.main.model.MakerItemWrapper
 import com.example.myrijks.ui.feature.main.model.MakerViewData
 import com.example.myrijks.ui.util.viewBinding
 
-class ArtAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ArtAdapter(private val itemClickListener: ItemClickListener) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var items = emptyList<ItemWrapper<*>>()
 
@@ -29,7 +30,7 @@ class ArtAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                             isAttachToParent
                         )
                     }
-                return ArtViewHolder(itemBinding)
+                return ArtViewHolder(itemBinding, itemClickListener)
             }
             ItemWrapper.ItemWrapperType.MAKER.ordinal -> {
                 val itemBinding =
@@ -75,10 +76,14 @@ class ArtAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         result.dispatchUpdatesTo(this)
     }
 
-    class ArtViewHolder(private val itemArtBinding: ItemArtBinding) :
+    class ArtViewHolder(
+        private val itemArtBinding: ItemArtBinding,
+        private val itemClickListener: ItemClickListener
+    ) :
         RecyclerView.ViewHolder(itemArtBinding.root) {
         fun bind(artViewData: ArtViewData) {
             with(itemArtBinding) {
+                root.setOnClickListener { itemClickListener.onItemClicked(artViewData.id) }
                 textViewTitle.text = artViewData.title
                 textViewObjectNumber.text = artViewData.objectNumber
                 textViewMaker.text = artViewData.principalOrFirstMaker

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myrijks.R
@@ -25,7 +26,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = ArtAdapter()
+        val adapter =
+            ArtAdapter { _ -> findNavController().navigate(R.id.action_mainFragment_to_detailsFragment) }
         binding.recyclerViewCollection.adapter = adapter
         binding.recyclerViewCollection.addOnScrollListener(object :
             RecyclerView.OnScrollListener() {
