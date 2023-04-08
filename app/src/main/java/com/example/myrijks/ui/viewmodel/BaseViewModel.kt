@@ -7,7 +7,7 @@ import io.reactivex.rxjava3.disposables.Disposable
 
 abstract class BaseViewModel(schedulerProvider: SchedulerProvider) : ViewModel() {
 
-    protected val disposables by lazy { CompositeDisposable() }
+    private val disposables by lazy { CompositeDisposable() }
 
     private val ioScheduler = schedulerProvider.io()
     private val uiScheduler = schedulerProvider.ui()
