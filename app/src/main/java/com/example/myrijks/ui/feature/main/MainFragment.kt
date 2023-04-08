@@ -25,9 +25,11 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         val adapter =
-            ArtAdapter { _ -> findNavController().navigate(R.id.action_mainFragment_to_detailsFragment) }
+            ArtAdapter { artObjectId ->
+                val action = MainFragmentDirections.actionMainFragmentToDetailsFragment(artObjectId)
+                findNavController().navigate(action)
+            }
         binding.recyclerViewCollection.adapter = adapter
         binding.recyclerViewCollection.addOnScrollListener(object :
             RecyclerView.OnScrollListener() {
