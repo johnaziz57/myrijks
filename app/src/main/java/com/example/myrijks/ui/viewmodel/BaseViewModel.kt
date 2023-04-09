@@ -17,7 +17,7 @@ abstract class BaseViewModel(schedulerProvider: SchedulerProvider) : ViewModel()
         super.onCleared()
     }
 
-    fun <T : Any> executeWithSchedulers(
+    fun <T : Any> execute(
         single: Single<T>,
         onSuccess: (T) -> (Unit),
         onError: (Throwable) -> (Unit)

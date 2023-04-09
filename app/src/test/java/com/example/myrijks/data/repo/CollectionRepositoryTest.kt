@@ -1,7 +1,7 @@
 package com.example.myrijks.data.repo
 
 import com.example.myrijks.data.api.RijksService
-import com.example.myrijks.data.model.ArtCollection
+import com.example.myrijks.data.model.ArtCollectionResponse
 import io.reactivex.rxjava3.android.plugins.RxAndroidPlugins
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.plugins.RxJavaPlugins
@@ -59,10 +59,10 @@ class CollectionRepositoryTest {
 
     @Test
     fun `test get collection`() {
-        val artCollection = mock<ArtCollection>()
+        val artCollectionResponse = mock<ArtCollectionResponse>()
         `when`(rijksService.getCollection(sort = any(), pageIndex = any())).thenReturn(
             Single.just(
-                artCollection
+                artCollectionResponse
             )
         )
 
@@ -71,6 +71,6 @@ class CollectionRepositoryTest {
         testObserver
             .assertNoErrors()
             .assertComplete()
-        assertEquals(artCollection, testObserver.values()[0])
+        assertEquals(artCollectionResponse, testObserver.values()[0])
     }
 }

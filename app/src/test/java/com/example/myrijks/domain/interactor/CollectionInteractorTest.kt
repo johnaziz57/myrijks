@@ -1,6 +1,6 @@
 package com.example.myrijks.domain.interactor
 
-import com.example.myrijks.data.model.ArtCollection
+import com.example.myrijks.data.model.ArtCollectionResponse
 import com.example.myrijks.data.model.ArtObject
 import com.example.myrijks.data.repo.CollectionRepository
 import com.example.myrijks.domain.mapper.ArtDataMapper
@@ -68,7 +68,7 @@ class CollectionInteractorTest {
     @Test
     fun `test get collection`() {
         val artObject = mock<ArtObject>()
-        val artCollection = mock<ArtCollection> {
+        val artCollectionResponse = mock<ArtCollectionResponse> {
             on { artObjects } doReturn listOf(artObject)
         }
 
@@ -78,7 +78,7 @@ class CollectionInteractorTest {
 
         `when`(collectionRepository.getCollection(pageIndex = anyInt())).thenReturn(
             Single.just(
-                artCollection
+                artCollectionResponse
             )
         )
         `when`(artDataMapper.mapToArtViewData(artObject)).thenReturn(artViewData)

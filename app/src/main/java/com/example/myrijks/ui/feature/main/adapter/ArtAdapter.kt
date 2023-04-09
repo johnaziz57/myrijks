@@ -45,7 +45,7 @@ class ArtAdapter(private val itemClickListener: ItemClickListener) :
             }
             else -> {
                 throw IllegalArgumentException(
-                    "Unable to create ViewHolder of type %s".format(
+                    "Unable to create ViewHolder of type '%s'".format(
                         viewType
                     )
                 )
@@ -83,7 +83,7 @@ class ArtAdapter(private val itemClickListener: ItemClickListener) :
         RecyclerView.ViewHolder(itemArtBinding.root) {
         fun bind(artViewData: ArtViewData) {
             with(itemArtBinding) {
-                root.setOnClickListener { itemClickListener.onItemClicked(artViewData.id) }
+                root.setOnClickListener { itemClickListener.onItemClicked(artViewData.objectNumber) }
                 textViewTitle.text = artViewData.title
                 textViewObjectNumber.text = artViewData.objectNumber
                 textViewMaker.text = artViewData.principalOrFirstMaker
