@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Title" parent="@android:style/TextAppearance.Large">
+        <item name="android:fontFamily">@font/roboto_medium</item>
+    </style>
+
+    <style name="Header" parent="@android:style/TextAppearance.Medium">
+        <item name="android:fontFamily">@font/roboto_medium</item>
+    </style>
+
+    <style name="Text" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/roboto_regular</item>
+    </style>
+</resources>

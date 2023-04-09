@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <size android:height="1dp" />
-    <solid android:color="@color/separator" />
-</shape>
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:top="0dp">
+        <shape android:shape="rectangle">
+            <size android:height="4dp" />
+            <solid android:color="@android:color/transparent" />
+        </shape>
+    </item>
+    <item android:top="4dp">
+        <shape android:shape="rectangle">
+            <size android:height="1dp" />
+            <solid android:color="@color/separator" />
+        </shape>
+    </item>
+    <item android:top="5dp">
+        <shape android:shape="rectangle">
+            <size android:height="4dp" />
+            <solid android:color="@android:color/transparent" />
+        </shape>
+    </item>
+</layer-list>
