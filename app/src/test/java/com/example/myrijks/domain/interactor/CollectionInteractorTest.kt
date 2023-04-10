@@ -4,6 +4,7 @@ import com.example.myrijks.data.model.ArtCollectionResponse
 import com.example.myrijks.data.model.ArtObject
 import com.example.myrijks.data.repo.CollectionRepository
 import com.example.myrijks.domain.mapper.ArtDataMapper
+import com.example.myrijks.domain.mapper.ArtDetailsMapper
 import com.example.myrijks.ui.feature.main.model.ArtViewData
 import io.reactivex.rxjava3.android.plugins.RxAndroidPlugins
 import io.reactivex.rxjava3.core.Single
@@ -50,6 +51,9 @@ class CollectionInteractorTest {
     @Mock
     private lateinit var artDataMapper: ArtDataMapper
 
+    @Mock
+    private lateinit var artDetailsMapper: ArtDetailsMapper
+
     private lateinit var collectionInteractor: CollectionInteractorImpl
 
 
@@ -57,7 +61,13 @@ class CollectionInteractorTest {
     fun setUp() {
         autoCloseable = MockitoAnnotations.openMocks(this)
         collectionInteractor =
-            Mockito.spy(CollectionInteractorImpl(collectionRepository, artDataMapper))
+            Mockito.spy(
+                CollectionInteractorImpl(
+                    collectionRepository,
+                    artDataMapper,
+                    artDetailsMapper
+                )
+            )
     }
 
     @After
