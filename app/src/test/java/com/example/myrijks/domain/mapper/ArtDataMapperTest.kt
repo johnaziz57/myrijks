@@ -43,6 +43,6 @@ class ArtDataMapperTest {
             "url",
             "maker"
         )
-        assertEquals(artViewData, expectedArtViewData)
+        assertEquals(expectedArtViewData, artViewData)
     }
 }

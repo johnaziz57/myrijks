@@ -30,7 +30,7 @@ class MainViewModelTest {
     private val schedulerProvider = TestSchedulerProviderImpl()
 
     @Test
-    fun loadNextCollection() {
+    fun `load collection`() {
         val mainViewModel = MainViewModel(collectionInteractor, schedulerProvider)
 
         val artViewData = mock<ArtViewData> {
@@ -42,13 +42,13 @@ class MainViewModelTest {
         mainViewModel.loadNextCollection()
         val value = mainViewModel.collectionLiveData.getOrAwaitValue()
 
-        assertEquals(value.size, 2)
+        assertEquals(2, value.size)
         val firstItem = value[0]
         assertTrue(firstItem is MakerItemWrapper)
-        assertEquals((firstItem as MakerItemWrapper).item.maker, "maker")
+        assertEquals("maker", (firstItem as MakerItemWrapper).item.maker)
 
         val secondItem = value[1]
         assertTrue(secondItem is ArtItemWrapper)
-        assertEquals((secondItem as ArtItemWrapper).item.principalOrFirstMaker, "maker")
+        assertEquals("maker", (secondItem as ArtItemWrapper).item.principalOrFirstMaker)
     }
 }
