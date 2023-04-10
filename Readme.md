@@ -2,7 +2,7 @@
 
 [x] Test MainViewModel
 [x] Test DetailsViewModel
-[] Test interactor Get collection
+[x] Test interactor Get collection
 [x] Test interactor Get details
 [] Test repository get collection
 [] Test Navigation

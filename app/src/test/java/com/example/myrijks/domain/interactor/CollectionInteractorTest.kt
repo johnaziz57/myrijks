@@ -2,9 +2,12 @@ package com.example.myrijks.domain.interactor
 
 import com.example.myrijks.data.model.ArtCollectionResponse
 import com.example.myrijks.data.model.ArtObject
+import com.example.myrijks.data.model.ArtObjectDetails
+import com.example.myrijks.data.model.ArtObjectDetailsResponse
 import com.example.myrijks.data.repo.CollectionRepository
 import com.example.myrijks.domain.mapper.ArtDataMapper
 import com.example.myrijks.domain.mapper.ArtDetailsMapper
+import com.example.myrijks.ui.feature.details.model.ArtDetailsViewData
 import com.example.myrijks.ui.feature.main.model.ArtViewData
 import io.reactivex.rxjava3.android.plugins.RxAndroidPlugins
 import io.reactivex.rxjava3.core.Single
@@ -19,6 +22,7 @@ import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.Mockito.anyInt
+import org.mockito.Mockito.anyString
 import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
 import org.mockito.kotlin.doReturn
@@ -92,5 +96,30 @@ class CollectionInteractorTest {
             .assertNoErrors()
             .assertComplete()
         Assert.assertEquals(mapOf("artist" to listOf(artViewData)), testObserver.values()[0])
+    }
+
+    @Test
+    fun `test get art object details`() {
+        val artObjectDetails = mock<ArtObjectDetails>()
+        val artObjectDetailsResponse = mock<ArtObjectDetailsResponse> {
+            on { artObject } doReturn artObjectDetails
+        }
+
+        val artDetailsViewData = mock<ArtDetailsViewData>()
+
+        `when`(collectionRepository.getArtObjectDetails(artObjectId = anyString())).thenReturn(
+            Single.just(artObjectDetailsResponse)
+        )
+
+        `when`(artDetailsMapper.mapToArtDetailsViewData(artObjectDetails)).thenReturn(
+            artDetailsViewData
+        )
+
+        val testObserver = collectionInteractor.getArtObjectDetails("id").test()
+
+        testObserver
+            .assertNoErrors()
+            .assertComplete()
+        Assert.assertEquals(artDetailsViewData, testObserver.values()[0])
     }
 }
