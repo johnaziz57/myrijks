@@ -3,6 +3,7 @@ package com.example.myrijks.ui.feature.details
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -11,6 +12,7 @@ import androidx.navigation.fragment.navArgs
 import coil.load
 import com.example.myrijks.R
 import com.example.myrijks.databinding.FragmentDetailsBinding
+import com.example.myrijks.ui.model.ResultStatus
 import com.example.myrijks.ui.util.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -27,6 +29,22 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        viewModel.resultStatusLiveData.observe(viewLifecycleOwner) {
+            when (it) {
+                ResultStatus.LOADING, ResultStatus.DEFAULT -> {
+                    binding.progressBar.isVisible = true
+                }
+                ResultStatus.ERROR -> {
+                    binding.progressBar.isVisible = false
+                    Toast.makeText(context, "Something went wrong", Toast.LENGTH_SHORT).show()
+                }
+                ResultStatus.SUCCESS -> {
+                    binding.progressBar.isVisible = false
+                    binding.scrollViewDetailsContainer.isVisible = true
+                }
+                else -> {}
+            }
+        }
         viewModel.artDetailsLiveData.observe(viewLifecycleOwner) { viewData ->
             with(binding) {
                 viewData.imageUrl.let { imageUrl ->

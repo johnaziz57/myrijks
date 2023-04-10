@@ -24,6 +24,7 @@ class MainViewModel @Inject constructor(
         get() = _collection
 
     private val _collection: MutableLiveData<List<ItemWrapper<*>>> = MutableLiveData()
+
     private val collectionMap: MutableMap<String, List<ArtViewData>> = mutableMapOf()
     private var pageIndex = 1
     private var collectionDisposable: Disposable? = null
