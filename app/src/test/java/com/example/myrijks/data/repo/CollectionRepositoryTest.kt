@@ -6,20 +6,21 @@ import io.reactivex.rxjava3.android.plugins.RxAndroidPlugins
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.plugins.RxJavaPlugins
 import io.reactivex.rxjava3.schedulers.Schedulers
-import org.junit.After
 import org.junit.AfterClass
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.BeforeClass
 import org.junit.Test
+import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.anyInt
 import org.mockito.Mockito.anyString
 import org.mockito.Mockito.spy
-import org.mockito.MockitoAnnotations
+import org.mockito.junit.MockitoJUnitRunner
 import org.mockito.kotlin.mock
 
+@RunWith(MockitoJUnitRunner::class)
 class CollectionRepositoryTest {
 
     companion object {
@@ -40,8 +41,6 @@ class CollectionRepositoryTest {
         }
     }
 
-    private var autoCloseable: AutoCloseable? = null
-
     @Mock
     private lateinit var rijksService: RijksService
 
@@ -49,13 +48,7 @@ class CollectionRepositoryTest {
 
     @Before
     fun setUp() {
-        autoCloseable = MockitoAnnotations.openMocks(this)
         collectionRepo = spy(CollectionRepositoryImpl(rijksService))
-    }
-
-    @After
-    fun tearDown() {
-        autoCloseable?.close()
     }
 
     @Test

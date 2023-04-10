@@ -10,20 +10,21 @@ import io.reactivex.rxjava3.android.plugins.RxAndroidPlugins
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.plugins.RxJavaPlugins
 import io.reactivex.rxjava3.schedulers.Schedulers
-import org.junit.After
 import org.junit.AfterClass
 import org.junit.Assert
 import org.junit.Before
 import org.junit.BeforeClass
 import org.junit.Test
+import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.anyInt
-import org.mockito.MockitoAnnotations
+import org.mockito.junit.MockitoJUnitRunner
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 
+@RunWith(MockitoJUnitRunner::class)
 class CollectionInteractorTest {
     companion object {
         @BeforeClass
@@ -43,8 +44,6 @@ class CollectionInteractorTest {
         }
     }
 
-    private var autoCloseable: AutoCloseable? = null
-
     @Mock
     private lateinit var collectionRepository: CollectionRepository
 
@@ -59,7 +58,6 @@ class CollectionInteractorTest {
 
     @Before
     fun setUp() {
-        autoCloseable = MockitoAnnotations.openMocks(this)
         collectionInteractor =
             Mockito.spy(
                 CollectionInteractorImpl(
@@ -68,11 +66,6 @@ class CollectionInteractorTest {
                     artDetailsMapper
                 )
             )
-    }
-
-    @After
-    fun tearDown() {
-        autoCloseable?.close()
     }
 
     @Test
