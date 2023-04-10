@@ -1,16 +1,14 @@
 ## TODO
 
-[] Tests
-[] ViewModel
-[] MainViewModel
-[x] DetailsViewModel
-[] Interactor
-[] Get collection
-[x] Get details
-[] Navigation
-[] Loading indicator
+[x] Test MainViewModel
+[x] Test DetailsViewModel
+[] Test interactor Get collection
+[x] Test interactor Get details
+[] Test repository get collection
+[] Test Navigation
+[] Add Loading indicator
 [] Network error
-[] Automated tests
+[] UI tests
 [x] Navigation
 [] Convert to DataSource
 [] Room
