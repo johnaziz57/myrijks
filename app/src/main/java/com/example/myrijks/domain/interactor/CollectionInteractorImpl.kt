@@ -21,7 +21,7 @@ class CollectionInteractorImpl @Inject constructor(
             .map { it.artObjects.map(artDataMapper::mapToArtViewData) }
     }
 
-    override fun getArtCollectionByAuthor(pageIndex: Int): Single<Map<String, List<ArtViewData>>> {
+    override fun getArtCollectionByMaker(pageIndex: Int): Single<Map<String, List<ArtViewData>>> {
         return collectionRepository.getCollection(pageIndex)
             .map { artCollection ->
                 artCollection.artObjects.map(artDataMapper::mapToArtViewData)

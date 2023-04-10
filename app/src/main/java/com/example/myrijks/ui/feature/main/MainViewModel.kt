@@ -31,7 +31,7 @@ class MainViewModel @Inject constructor(
     fun loadNextCollection() {
         if (collectionDisposable?.isDisposed?.not() == true) return
         collectionDisposable = execute(
-            single = collectionInteractor.getArtCollectionByAuthor(pageIndex),
+            single = collectionInteractor.getArtCollectionByMaker(pageIndex),
             onSuccess = {
                 val collection = mapToItemWrapper(it, collectionMap)
                 synchronizeCollectionMap(it, collectionMap)

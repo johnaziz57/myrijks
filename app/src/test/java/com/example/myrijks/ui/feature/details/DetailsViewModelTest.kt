@@ -4,15 +4,14 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.example.myrijks.domain.interactor.CollectionInteractor
 import com.example.myrijks.ui.feature.details.model.ArtDetailsViewData
+import com.example.myrijks.ui.viewmodel.TestSchedulerProviderImpl
 import io.reactivex.rxjava3.core.Single
-import org.junit.After
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.Mockito.`when`
 import org.mockito.Mockito.anyString
+import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
@@ -26,15 +25,7 @@ class DetailsViewModelTest {
     @Mock
     lateinit var collectionInteractor: CollectionInteractor
 
-    private val schedulerProvider = com.example.myrijks.ui.viewmodel.TestSchedulerProviderImpl()
-
-    @Before
-    fun setUp() {
-    }
-
-    @After
-    fun tearDown() {
-    }
+    private val schedulerProvider = TestSchedulerProviderImpl()
 
     @Test
     fun getArtObjectDetails() {

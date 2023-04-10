@@ -7,7 +7,7 @@ import io.reactivex.rxjava3.core.Single
 interface CollectionInteractor {
     fun getArtCollection(): Single<List<ArtViewData>>
 
-    fun getArtCollectionByAuthor(pageIndex: Int): Single<Map<String, List<ArtViewData>>>
+    fun getArtCollectionByMaker(pageIndex: Int): Single<Map<String, List<ArtViewData>>>
 
     fun getArtObjectDetails(artObjectId: String): Single<ArtDetailsViewData>
 }

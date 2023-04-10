@@ -18,8 +18,8 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
-import org.mockito.Mockito.`when`
 import org.mockito.Mockito.anyInt
+import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
@@ -86,7 +86,7 @@ class CollectionInteractorTest {
         )
         `when`(artDataMapper.mapToArtViewData(artObject)).thenReturn(artViewData)
 
-        val testObserver = collectionInteractor.getArtCollectionByAuthor(1).test()
+        val testObserver = collectionInteractor.getArtCollectionByMaker(1).test()
 
         testObserver
             .assertNoErrors()
