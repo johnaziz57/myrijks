@@ -5,6 +5,16 @@
 This app uses Rijks museum API to display its collection of art objects.
 Clicking on one of the art objects displayed will open the details of such object.
 
+
+
+https://user-images.githubusercontent.com/14923445/231248197-ecadc152-bae7-4605-aa1e-3ef93ad2ec6c.mp4
+
+
+
+https://user-images.githubusercontent.com/14923445/231248215-06af1e66-a9a1-4dec-9ae7-6e88598c3028.mp4
+
+
+
 ## Project structure
 
 This project follows Google's [recommendation](https://developer.android.com/topic/architecture)
