@@ -1,6 +1,5 @@
 package com.example.myrijks.ui.viewmodel
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.myrijks.ui.model.ResultStatus
@@ -10,15 +9,11 @@ import io.reactivex.rxjava3.disposables.Disposable
 
 abstract class BaseViewModel(schedulerProvider: SchedulerProvider) : ViewModel() {
 
-    val resultStatusLiveData: LiveData<ResultStatus>
-        get() = _resultStatus
-
     private val disposables by lazy { CompositeDisposable() }
 
     private val ioScheduler = schedulerProvider.io()
     private val uiScheduler = schedulerProvider.ui()
 
-    private val _resultStatus: MutableLiveData<ResultStatus> = MutableLiveData(ResultStatus.DEFAULT)
 
     override fun onCleared() {
         disposables.clear()
@@ -28,20 +23,21 @@ abstract class BaseViewModel(schedulerProvider: SchedulerProvider) : ViewModel()
     fun <T : Any> execute(
         single: Single<T>,
         onSuccess: (T) -> (Unit),
-        onError: (Throwable) -> (Unit)
+        onError: (Throwable) -> (Unit),
+        resultStatusLiveData: MutableLiveData<ResultStatus>? = null
     ): Disposable {
-        _resultStatus.value = ResultStatus.LOADING
+        resultStatusLiveData?.value = ResultStatus.LOADING
         val disposable = single
             .subscribeOn(ioScheduler)
             .observeOn(uiScheduler)
             .subscribe(
                 {
                     onSuccess(it)
-                    _resultStatus.value = ResultStatus.SUCCESS
+                    resultStatusLiveData?.value = ResultStatus.SUCCESS
                 },
                 {
                     onError(it)
-                    _resultStatus.value = ResultStatus.ERROR
+                    resultStatusLiveData?.value = ResultStatus.ERROR
                 }
             )
 

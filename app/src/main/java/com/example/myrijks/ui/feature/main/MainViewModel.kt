@@ -8,6 +8,7 @@ import com.example.myrijks.ui.feature.main.model.ArtViewData
 import com.example.myrijks.ui.feature.main.model.ItemWrapper
 import com.example.myrijks.ui.feature.main.model.MakerItemWrapper
 import com.example.myrijks.ui.feature.main.model.MakerViewData
+import com.example.myrijks.ui.model.ResultStatus
 import com.example.myrijks.ui.viewmodel.BaseViewModel
 import com.example.myrijks.ui.viewmodel.SchedulerProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,6 +25,11 @@ class MainViewModel @Inject constructor(
         get() = _collection
 
     private val _collection: MutableLiveData<List<ItemWrapper<*>>> = MutableLiveData()
+
+    val resultStatusLiveData: LiveData<ResultStatus>
+        get() = _resultStatus
+
+    private val _resultStatus: MutableLiveData<ResultStatus> = MutableLiveData(ResultStatus.DEFAULT)
 
     private val collectionMap: MutableMap<String, List<ArtViewData>> = mutableMapOf()
     private var pageIndex = 1
@@ -42,7 +48,8 @@ class MainViewModel @Inject constructor(
                 _collection.value = newCollection
                 pageIndex++
             },
-            onError = { }
+            onError = { },
+            resultStatusLiveData = _resultStatus
         )
     }
 
