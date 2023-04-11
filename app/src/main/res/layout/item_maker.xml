@@ -9,9 +9,7 @@
         android:id="@+id/text_view_maker"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#333333"
-        android:textSize="18sp"
-        android:textStyle="bold"
+        style="@style/Title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

@@ -34,21 +34,19 @@
 
             <TextView
                 android:id="@+id/text_view_title"
+                style="@style/Header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/grey"
-                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="TEST TITLE" />
 
             <TextView
                 android:id="@+id/text_view_maker"
+                style="@style/Text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:textColor="@color/grey"
-                android:textSize="12sp"
                 app:layout_constraintEnd_toStartOf="@+id/text_view_object_number"
                 app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -60,8 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:textColor="@color/grey"
-                android:textSize="8sp"
+                style="@style/TinyText"
                 app:layout_constraintBottom_toBottomOf="@id/text_view_maker"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/text_view_maker"
