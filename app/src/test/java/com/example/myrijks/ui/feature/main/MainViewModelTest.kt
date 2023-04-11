@@ -72,14 +72,12 @@ class MainViewModelTest {
 
         val artViewData1 = mock<ArtViewData> {
             on { id } doReturn "1"
-            on { principalOrFirstMaker } doReturn "maker"
         }
         val map1 = mapOf("maker" to listOf(artViewData1))
         `when`(collectionInteractor.getArtCollectionByMaker(1)).thenReturn(Single.just(map1))
 
         val artViewData2 = mock<ArtViewData> {
             on { id } doReturn "2"
-            on { principalOrFirstMaker } doReturn "maker"
         }
         val map2 = mapOf("maker" to listOf(artViewData2))
         `when`(collectionInteractor.getArtCollectionByMaker(2)).thenReturn(Single.just(map2))
@@ -111,14 +109,12 @@ class MainViewModelTest {
 
         val artViewData1 = mock<ArtViewData> {
             on { id } doReturn "1"
-            on { principalOrFirstMaker } doReturn "maker1"
         }
         val map1 = mapOf("maker1" to listOf(artViewData1))
         `when`(collectionInteractor.getArtCollectionByMaker(1)).thenReturn(Single.just(map1))
 
         val artViewData2 = mock<ArtViewData> {
             on { id } doReturn "2"
-            on { principalOrFirstMaker } doReturn "maker2"
         }
         val map2 = mapOf("maker2" to listOf(artViewData2))
         `when`(collectionInteractor.getArtCollectionByMaker(2)).thenReturn(Single.just(map2))
