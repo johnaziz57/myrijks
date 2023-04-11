@@ -42,6 +42,6 @@ This project also has UnitTests for the following
 3. Navigation component
 4. RxJava 3
 5. Coil
-6. MVVM
+6. ViewModel
 7. LiveData
 8. Mockito
