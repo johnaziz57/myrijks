@@ -26,7 +26,24 @@ It has three main components:
 2. Domain
 3. UI
 
-## Testing
+### Details
+
+This project is using MVVM architecture.
+
+### To run
+
+Please create `local.gradle` and add the API key to it as follows
+
+```groovy
+android {
+    defaultConfig {
+        buildConfigField "String", "API_KEY", "\"key\""
+    }
+}
+
+```
+
+## Unit Testing
 
 This project also has UnitTests for the following
 
