@@ -2,6 +2,7 @@ package com.example.myrijks.data.repo
 
 import com.example.myrijks.data.api.RijksService
 import com.example.myrijks.data.model.ArtCollectionResponse
+import com.example.myrijks.data.model.ArtObjectDetailsResponse
 import io.reactivex.rxjava3.android.plugins.RxAndroidPlugins
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.plugins.RxJavaPlugins
@@ -13,10 +14,10 @@ import org.junit.BeforeClass
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.Mockito.`when`
 import org.mockito.Mockito.anyInt
 import org.mockito.Mockito.anyString
 import org.mockito.Mockito.spy
+import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
 import org.mockito.kotlin.mock
 
@@ -61,6 +62,23 @@ class CollectionRepositoryTest {
         )
 
         val testObserver = collectionRepo.getCollection(1).test()
+
+        testObserver
+            .assertNoErrors()
+            .assertComplete()
+        assertEquals(artCollectionResponse, testObserver.values()[0])
+    }
+
+    @Test
+    fun `test get art object details`() {
+        val artCollectionResponse = mock<ArtObjectDetailsResponse>()
+        `when`(rijksService.getArtObjectDetails(artObjectId = anyString())).thenReturn(
+            Single.just(
+                artCollectionResponse
+            )
+        )
+
+        val testObserver = collectionRepo.getArtObjectDetails("id").test()
 
         testObserver
             .assertNoErrors()
