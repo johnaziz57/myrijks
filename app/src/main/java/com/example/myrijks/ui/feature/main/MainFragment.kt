@@ -12,6 +12,7 @@ import com.example.myrijks.databinding.FragmentMainBinding
 import com.example.myrijks.ui.feature.main.adapter.ArtAdapter
 import com.example.myrijks.ui.feature.main.components.ArtList
 import com.example.myrijks.ui.model.ResultStatus
+import com.example.myrijks.ui.theme.AppTheme
 import com.example.myrijks.ui.util.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -35,7 +36,11 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
         viewModel.collectionLiveData.observe(viewLifecycleOwner) {
             binding.composeViewResults.isVisible = true
-            binding.composeViewResults.setContent { ArtList(items = it) }
+            binding.composeViewResults.setContent {
+                AppTheme {
+                    ArtList(items = it)
+                }
+            }
         }
         viewModel.resultStatusLiveData.observe(viewLifecycleOwner) {
             when (it) {
@@ -43,9 +48,11 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                     Toast.makeText(context, "Something went wrong", Toast.LENGTH_SHORT).show()
                     binding.progressBar.isVisible = false
                 }
+
                 ResultStatus.LOADING, ResultStatus.DEFAULT -> {
                     binding.progressBar.isVisible = true
                 }
+
                 else -> {
                     binding.progressBar.isVisible = false
                 }

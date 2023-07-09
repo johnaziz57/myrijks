@@ -1,11 +1,15 @@
 package com.example.myrijks.ui.feature.main.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -18,35 +22,50 @@ import com.example.myrijks.ui.feature.main.model.ArtViewData
 
 @Composable
 fun ArtView(artViewData: ArtViewData) {
-    ConstraintLayout {
-        val (image, title, row) = createRefs()
-        val imageVisibility =
-            if (artViewData.imageUrl == null) Visibility.Gone else Visibility.Visible
-        AsyncImage(model = artViewData.imageUrl, contentDescription = null, modifier = Modifier
-            .constrainAs(image) {
-                top.linkTo(parent.top)
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
-                visibility = imageVisibility
+    Card(
+        shape = RoundedCornerShape(8.dp),
+        modifier = Modifier
+            .padding(horizontal = 8.dp, vertical = 4.dp)
+            .clickable { }
+    ) {
+        ConstraintLayout {
+            val (image, title, row) = createRefs()
+            val imageVisibility =
+                if (artViewData.imageUrl == null) Visibility.Gone else Visibility.Visible
+            AsyncImage(model = artViewData.imageUrl, contentDescription = null, modifier = Modifier
+                .constrainAs(image) {
+                    top.linkTo(parent.top)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                    visibility = imageVisibility
+                }
+                .aspectRatio(1.7f))
+            Text(text = artViewData.title,
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier
+                    .constrainAs(title) {
+                        top.linkTo(image.bottom)
+                        start.linkTo(parent.start)
+                    }
+                    .wrapContentWidth()
+                    .padding(horizontal = 4.dp, vertical = 8.dp))
+            Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier
+                .constrainAs(row) {
+                    top.linkTo(title.bottom)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                }
+                .fillMaxWidth()
+                .padding(horizontal = 4.dp, vertical = 8.dp)) {
+                Text(
+                    text = artViewData.principalOrFirstMaker,
+                    style = MaterialTheme.typography.bodyMedium,
+                )
+                Text(
+                    text = artViewData.objectNumber,
+                    style = MaterialTheme.typography.bodySmall,
+                )
             }
-            .aspectRatio(1.7f))
-        Text(text = artViewData.title, modifier = Modifier
-            .constrainAs(title) {
-                top.linkTo(image.bottom)
-                start.linkTo(parent.start)
-            }
-            .wrapContentWidth()
-            .padding(horizontal = 4.dp, vertical = 8.dp))
-        Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier
-            .constrainAs(row) {
-                top.linkTo(title.bottom)
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
-            }
-            .fillMaxWidth()
-            .padding(horizontal = 4.dp, vertical = 8.dp)) {
-            Text(text = artViewData.principalOrFirstMaker)
-            Text(text = artViewData.objectNumber)
         }
     }
 }

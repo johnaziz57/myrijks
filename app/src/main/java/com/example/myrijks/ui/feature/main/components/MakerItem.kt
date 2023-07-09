@@ -1,6 +1,7 @@
 package com.example.myrijks.ui.feature.main.components
 
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -15,7 +16,8 @@ fun MakerView(
 ) {
     Text(
         text = makerViewData.maker,
-        modifier = Modifier.padding(horizontal = 4.dp, vertical = 8.dp)
+        modifier = Modifier.padding(horizontal = 4.dp, vertical = 8.dp),
+        style = MaterialTheme.typography.titleLarge
     )
 }
 

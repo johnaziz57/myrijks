@@ -13,12 +13,20 @@ val RobotoFontFamily = FontFamily(
 )
 
 val MyRijksTypography = Typography(
-    titleMedium = TextStyle(
+    titleLarge = TextStyle(
         fontSize = 22.sp,
         fontFamily = RobotoFontFamily
     ),
-    bodyMedium = TextStyle(
+    titleMedium = TextStyle(
         fontSize = 18.sp,
+        fontFamily = RobotoFontFamily
+    ),
+    bodyMedium = TextStyle(
+        fontSize = 16.sp,
+        fontFamily = RobotoFontFamily
+    ),
+    bodySmall = TextStyle(
+        fontSize = 14.sp,
         fontFamily = RobotoFontFamily
     )
 )
