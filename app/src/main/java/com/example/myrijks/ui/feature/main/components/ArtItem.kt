@@ -21,12 +21,12 @@ import coil.compose.AsyncImage
 import com.example.myrijks.ui.feature.main.model.ArtViewData
 
 @Composable
-fun ArtView(artViewData: ArtViewData) {
+fun ArtView(artViewData: ArtViewData, onArtClicked: (artObjectId: String) -> Unit) {
     Card(
         shape = RoundedCornerShape(8.dp),
         modifier = Modifier
             .padding(horizontal = 8.dp, vertical = 4.dp)
-            .clickable { }
+            .clickable { onArtClicked(artViewData.id) }
     ) {
         ConstraintLayout {
             val (image, title, row) = createRefs()
@@ -80,6 +80,7 @@ fun ArtItemPreview() {
             objectNumber = "objectNumber",
             principalOrFirstMaker = "Jack",
             title = "The scream"
-        )
+        ),
+        onArtClicked = { }
     )
 }

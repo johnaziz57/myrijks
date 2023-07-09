@@ -15,7 +15,7 @@ import com.example.myrijks.ui.feature.main.model.MakerItemWrapper
 import com.example.myrijks.ui.feature.main.model.MakerViewData
 
 @Composable
-fun ArtList(items: List<ItemWrapper<*>>) {
+fun ArtList(items: List<ItemWrapper<*>>, onArtClicked: (artObjectId: String) -> Unit) {
     val state = rememberLazyListState()
     LazyColumn(
         contentPadding = PaddingValues(all = 4.dp),
@@ -24,7 +24,7 @@ fun ArtList(items: List<ItemWrapper<*>>) {
     ) {
         items(items) {
             when (it) {
-                is ArtItemWrapper -> ArtView(artViewData = it.item)
+                is ArtItemWrapper -> ArtView(artViewData = it.item, onArtClicked = onArtClicked)
                 is MakerItemWrapper -> MakerView(makerViewData = it.item)
             }
         }
@@ -47,5 +47,5 @@ fun ArtListPreview() {
         )
     )
 
-    ArtList(items = list)
+    ArtList(items = list, onArtClicked = {})
 }

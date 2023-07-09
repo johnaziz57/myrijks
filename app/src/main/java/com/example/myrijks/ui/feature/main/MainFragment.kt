@@ -9,7 +9,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.myrijks.R
 import com.example.myrijks.databinding.FragmentMainBinding
-import com.example.myrijks.ui.feature.main.adapter.ArtAdapter
 import com.example.myrijks.ui.feature.main.components.ArtList
 import com.example.myrijks.ui.model.ResultStatus
 import com.example.myrijks.ui.theme.AppTheme
@@ -28,17 +27,18 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val adapter =
-            ArtAdapter { artObjectId ->
-                val action = MainFragmentDirections.actionMainFragmentToDetailsFragment(artObjectId)
-                findNavController().navigate(action)
-            }
 
         viewModel.collectionLiveData.observe(viewLifecycleOwner) {
             binding.composeViewResults.isVisible = true
             binding.composeViewResults.setContent {
                 AppTheme {
-                    ArtList(items = it)
+                    ArtList(items = it,
+                        onArtClicked = { artObjectId ->
+                            val action = MainFragmentDirections.actionMainFragmentToDetailsFragment(
+                                artObjectId
+                            )
+                            findNavController().navigate(action)
+                        })
                 }
             }
         }
