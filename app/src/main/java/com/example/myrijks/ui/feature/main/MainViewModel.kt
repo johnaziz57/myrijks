@@ -2,15 +2,15 @@ package com.example.myrijks.ui.feature.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.myrijks.domain.error.model.ErrorEntity
 import com.example.myrijks.domain.interactor.CollectionInteractor
+import com.example.myrijks.domain.model.error.ErrorEntity
+import com.example.myrijks.domain.model.main.ArtEntityMap
+import com.example.myrijks.domain.model.main.MakerEntity
+import com.example.myrijks.domain.model.main.MutableArtEntityMap
 import com.example.myrijks.domain.util.Result
-import com.example.myrijks.ui.feature.main.model.ArtDataMap
 import com.example.myrijks.ui.feature.main.model.ArtItemWrapper
 import com.example.myrijks.ui.feature.main.model.ItemWrapper
 import com.example.myrijks.ui.feature.main.model.MakerItemWrapper
-import com.example.myrijks.ui.feature.main.model.MakerViewData
-import com.example.myrijks.ui.feature.main.model.MutableArtDataMap
 import com.example.myrijks.ui.model.ResultStatus
 import com.example.myrijks.ui.viewmodel.BaseViewModel
 import com.example.myrijks.ui.viewmodel.SchedulerProvider
@@ -33,7 +33,7 @@ class MainViewModel @Inject constructor(
     private val _collection: MutableLiveData<List<ItemWrapper<*>>> = MutableLiveData()
     private val _resultStatus: MutableLiveData<ResultStatus> = MutableLiveData(ResultStatus.DEFAULT)
 
-    private val collectionMap: MutableArtDataMap = mutableMapOf()
+    private val collectionMap: MutableArtEntityMap = mutableMapOf()
     private var pageIndex = 1
     private var collectionDisposable: Disposable? = null
 
@@ -75,21 +75,21 @@ class MainViewModel @Inject constructor(
     }
 
     private fun mapToItemWrapper(
-        newCollectionMap: ArtDataMap,
-        currentCollectionMap: ArtDataMap
+        newCollectionMap: ArtEntityMap,
+        currentCollectionMap: ArtEntityMap
     ): List<ItemWrapper<*>> {
         return newCollectionMap.flatMap { entry ->
             val result = entry.value.map { ArtItemWrapper(it) }.toMutableList<ItemWrapper<*>>()
             if (currentCollectionMap.containsKey(entry.key).not()) {
-                result.add(0, MakerItemWrapper(MakerViewData(entry.key)))
+                result.add(0, MakerItemWrapper(MakerEntity(entry.key)))
             }
             result
         }
     }
 
     private fun synchronizeCollectionMap(
-        newCollectionMap: ArtDataMap,
-        currentCollectionMap: MutableArtDataMap
+        newCollectionMap: ArtEntityMap,
+        currentCollectionMap: MutableArtEntityMap
     ) {
         newCollectionMap.entries.forEach { entry ->
             if (currentCollectionMap.containsKey(entry.key)) {

@@ -3,12 +3,12 @@ package com.example.myrijks.domain.mapper
 import com.example.myrijks.data.model.ArtObjectDetails
 import com.example.myrijks.data.model.Dimension
 import com.example.myrijks.data.model.PrincipalMaker
-import com.example.myrijks.ui.feature.details.model.ArtDetailsViewData
+import com.example.myrijks.domain.model.details.ArtDetailsEntity
 import javax.inject.Inject
 
 class ArtDetailsMapper @Inject constructor() {
-    fun mapToArtDetailsViewData(artObjectDetails: ArtObjectDetails): ArtDetailsViewData {
-        return ArtDetailsViewData(
+    fun mapToArtDetailsEntity(artObjectDetails: ArtObjectDetails): ArtDetailsEntity {
+        return ArtDetailsEntity(
             id = artObjectDetails.id,
             objectNumber = artObjectDetails.objectNumber,
             imageUrl = artObjectDetails.webImage?.url,

@@ -1,7 +1,6 @@
-package com.example.myrijks.ui.feature.main.model
+package com.example.myrijks.domain.model.main
 
-// TODO move view data to domain
-data class ArtViewData(
+data class ArtEntity(
     val id: String,
     val title: String,
     val objectNumber: String,

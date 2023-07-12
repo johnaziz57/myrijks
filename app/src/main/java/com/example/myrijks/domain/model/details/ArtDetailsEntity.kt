@@ -1,6 +1,6 @@
-package com.example.myrijks.ui.feature.details.model
+package com.example.myrijks.domain.model.details
 
-data class ArtDetailsViewData(
+data class ArtDetailsEntity(
     val id: String,
     val objectNumber: String,
     val imageUrl: String?,

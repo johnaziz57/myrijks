@@ -4,11 +4,12 @@ import com.example.myrijks.data.model.ArtCollectionResponse
 import com.example.myrijks.data.model.ArtObject
 import com.example.myrijks.data.model.ArtObjectDetails
 import com.example.myrijks.data.model.ArtObjectDetailsResponse
+import com.example.myrijks.domain.error.ErrorHandler
 import com.example.myrijks.domain.mapper.ArtDataMapper
 import com.example.myrijks.domain.mapper.ArtDetailsMapper
+import com.example.myrijks.domain.model.details.ArtDetailsEntity
+import com.example.myrijks.domain.model.main.ArtEntity
 import com.example.myrijks.domain.repo.CollectionRepository
-import com.example.myrijks.ui.feature.details.model.ArtDetailsViewData
-import com.example.myrijks.ui.feature.main.model.ArtViewData
 import io.reactivex.rxjava3.android.plugins.RxAndroidPlugins
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.plugins.RxJavaPlugins
@@ -57,6 +58,9 @@ class CollectionInteractorTest {
     @Mock
     private lateinit var artDetailsMapper: ArtDetailsMapper
 
+    @Mock
+    private lateinit var errorHandler: ErrorHandler
+
     private lateinit var collectionInteractor: CollectionInteractorImpl
 
 
@@ -67,7 +71,8 @@ class CollectionInteractorTest {
                 CollectionInteractorImpl(
                     collectionRepository,
                     artDataMapper,
-                    artDetailsMapper
+                    artDetailsMapper,
+                    errorHandler
                 )
             )
     }
@@ -79,7 +84,7 @@ class CollectionInteractorTest {
             on { artObjects } doReturn listOf(artObject)
         }
 
-        val artViewData = mock<ArtViewData> {
+        val artViewData = mock<ArtEntity> {
             on { principalOrFirstMaker } doReturn "artist"
         }
 
@@ -88,7 +93,7 @@ class CollectionInteractorTest {
                 artCollectionResponse
             )
         )
-        `when`(artDataMapper.mapToArtViewData(artObject)).thenReturn(artViewData)
+        `when`(artDataMapper.mapToArtEntity(artObject)).thenReturn(artViewData)
 
         val testObserver = collectionInteractor.getArtCollectionByMaker(1).test()
 
@@ -105,13 +110,13 @@ class CollectionInteractorTest {
             on { artObject } doReturn artObjectDetails
         }
 
-        val artDetailsViewData = mock<ArtDetailsViewData>()
+        val artDetailsViewData = mock<ArtDetailsEntity>()
 
         `when`(collectionRepository.getArtObjectDetails(artObjectId = anyString())).thenReturn(
             Single.just(artObjectDetailsResponse)
         )
 
-        `when`(artDetailsMapper.mapToArtDetailsViewData(artObjectDetails)).thenReturn(
+        `when`(artDetailsMapper.mapToArtDetailsEntity(artObjectDetails)).thenReturn(
             artDetailsViewData
         )
 

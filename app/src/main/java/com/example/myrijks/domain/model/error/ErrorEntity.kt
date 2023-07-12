@@ -1,4 +1,4 @@
-package com.example.myrijks.domain.error.model
+package com.example.myrijks.domain.model.error
 
 sealed class ErrorEntity {
 

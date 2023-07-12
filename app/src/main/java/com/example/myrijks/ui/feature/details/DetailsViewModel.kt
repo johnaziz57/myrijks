@@ -3,8 +3,8 @@ package com.example.myrijks.ui.feature.details
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.myrijks.domain.interactor.CollectionInteractor
+import com.example.myrijks.domain.model.details.ArtDetailsEntity
 import com.example.myrijks.domain.util.Result
-import com.example.myrijks.ui.feature.details.model.ArtDetailsViewData
 import com.example.myrijks.ui.model.ResultStatus
 import com.example.myrijks.ui.viewmodel.BaseViewModel
 import com.example.myrijks.ui.viewmodel.SchedulerProvider
@@ -17,10 +17,10 @@ class DetailsViewModel @Inject constructor(
     schedulerProvider: SchedulerProvider
 ) : BaseViewModel(schedulerProvider) {
 
-    val artDetailsLiveData: LiveData<ArtDetailsViewData>
+    val artDetailsLiveData: LiveData<ArtDetailsEntity>
         get() = _artDetails
 
-    private val _artDetails: MutableLiveData<ArtDetailsViewData> = MutableLiveData()
+    private val _artDetails: MutableLiveData<ArtDetailsEntity> = MutableLiveData()
 
     val resultStatusLiveData: LiveData<ResultStatus>
         get() = _resultStatus

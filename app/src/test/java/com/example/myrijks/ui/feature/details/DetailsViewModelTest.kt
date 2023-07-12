@@ -3,7 +3,8 @@ package com.example.myrijks.ui.feature.details
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.example.myrijks.domain.interactor.CollectionInteractor
-import com.example.myrijks.ui.feature.details.model.ArtDetailsViewData
+import com.example.myrijks.domain.model.details.ArtDetailsEntity
+import com.example.myrijks.domain.util.Result
 import com.example.myrijks.ui.viewmodel.TestSchedulerProviderImpl
 import io.reactivex.rxjava3.core.Single
 import org.junit.Rule
@@ -31,18 +32,18 @@ class DetailsViewModelTest {
     fun getArtObjectDetails() {
         val detailsViewModel = DetailsViewModel(collectionInteractor, schedulerProvider)
 
-        val artDetailsViewData = mock<ArtDetailsViewData>()
+        val artDetailsEntity = mock<ArtDetailsEntity>()
         `when`(collectionInteractor.getArtObjectDetails(anyString())).thenReturn(
             Single.just(
-                artDetailsViewData
+                Result.Success(artDetailsEntity)
             )
         )
 
-        val observer = mock<Observer<ArtDetailsViewData>>()
+        val observer = mock<Observer<ArtDetailsEntity>>()
 
         detailsViewModel.artDetailsLiveData.observeForever(observer)
         detailsViewModel.getArtObjectDetails("id")
 
-        verify(observer).onChanged(artDetailsViewData)
+        verify(observer).onChanged(artDetailsEntity)
     }
 }

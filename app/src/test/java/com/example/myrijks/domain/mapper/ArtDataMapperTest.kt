@@ -2,7 +2,7 @@ package com.example.myrijks.domain.mapper
 
 import com.example.myrijks.data.model.ArtObject
 import com.example.myrijks.data.model.Image
-import com.example.myrijks.ui.feature.main.model.ArtViewData
+import com.example.myrijks.domain.model.main.ArtEntity
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -35,14 +35,14 @@ class ArtDataMapperTest {
             on { principalOrFirstMaker } doReturn "maker"
         }
 
-        val artViewData = artDataMapper.mapToArtViewData(artObject)
-        val expectedArtViewData = ArtViewData(
+        val artViewData = artDataMapper.mapToArtEntity(artObject)
+        val expectedArtEntity = ArtEntity(
             "id",
             "title",
             "objectNumber",
             "url",
             "maker"
         )
-        assertEquals(expectedArtViewData, artViewData)
+        assertEquals(expectedArtEntity, artViewData)
     }
 }

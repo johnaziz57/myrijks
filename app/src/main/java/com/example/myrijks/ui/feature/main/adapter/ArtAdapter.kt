@@ -7,11 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.myrijks.databinding.ItemArtBinding
 import com.example.myrijks.databinding.ItemMakerBinding
+import com.example.myrijks.domain.model.main.ArtEntity
+import com.example.myrijks.domain.model.main.MakerEntity
 import com.example.myrijks.ui.feature.main.model.ArtItemWrapper
-import com.example.myrijks.ui.feature.main.model.ArtViewData
 import com.example.myrijks.ui.feature.main.model.ItemWrapper
 import com.example.myrijks.ui.feature.main.model.MakerItemWrapper
-import com.example.myrijks.ui.feature.main.model.MakerViewData
 import com.example.myrijks.ui.util.viewBinding
 
 class ArtAdapter(private val itemClickListener: ItemClickListener) :
@@ -81,13 +81,13 @@ class ArtAdapter(private val itemClickListener: ItemClickListener) :
         private val itemClickListener: ItemClickListener
     ) :
         RecyclerView.ViewHolder(itemArtBinding.root) {
-        fun bind(artViewData: ArtViewData) {
+        fun bind(artEntity: ArtEntity) {
             with(itemArtBinding) {
-                root.setOnClickListener { itemClickListener.onItemClicked(artViewData.objectNumber) }
-                textViewTitle.text = artViewData.title
-                textViewObjectNumber.text = artViewData.objectNumber
-                textViewMaker.text = artViewData.principalOrFirstMaker
-                artViewData.imageUrl.let {
+                root.setOnClickListener { itemClickListener.onItemClicked(artEntity.objectNumber) }
+                textViewTitle.text = artEntity.title
+                textViewObjectNumber.text = artEntity.objectNumber
+                textViewMaker.text = artEntity.principalOrFirstMaker
+                artEntity.imageUrl.let {
                     if (it.isNullOrBlank()) {
                         imageViewArt.isVisible = false
                     } else {
@@ -101,9 +101,9 @@ class ArtAdapter(private val itemClickListener: ItemClickListener) :
 
     class MakerViewHolder(private val itemMakerBinding: ItemMakerBinding) :
         RecyclerView.ViewHolder(itemMakerBinding.root) {
-        fun bind(makerViewData: MakerViewData) {
+        fun bind(makerEntity: MakerEntity) {
             with(itemMakerBinding) {
-                textViewMaker.text = makerViewData.maker
+                textViewMaker.text = makerEntity.maker
             }
         }
     }

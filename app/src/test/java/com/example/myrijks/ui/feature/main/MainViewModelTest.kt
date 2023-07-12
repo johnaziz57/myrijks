@@ -2,10 +2,11 @@ package com.example.myrijks.ui.feature.main
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.myrijks.domain.interactor.CollectionInteractor
+import com.example.myrijks.domain.model.main.ArtEntity
+import com.example.myrijks.domain.model.main.ArtEntityMap
+import com.example.myrijks.domain.util.Result
 import com.example.myrijks.ui.feature.getOrAwaitValue
-import com.example.myrijks.ui.feature.main.model.ArtDataMap
 import com.example.myrijks.ui.feature.main.model.ArtItemWrapper
-import com.example.myrijks.ui.feature.main.model.ArtViewData
 import com.example.myrijks.ui.feature.main.model.MakerItemWrapper
 import com.example.myrijks.ui.viewmodel.TestSchedulerProviderImpl
 import io.reactivex.rxjava3.core.Single
@@ -35,11 +36,17 @@ class MainViewModelTest {
     fun `load collection`() {
         val mainViewModel = MainViewModel(collectionInteractor, schedulerProvider)
 
-        val artViewData = mock<ArtViewData> {
+        val artViewData = mock<ArtEntity> {
             on { principalOrFirstMaker } doReturn "maker"
         }
         val map = mapOf("maker" to listOf(artViewData))
-        `when`(collectionInteractor.getArtCollectionByMaker(anyInt())).thenReturn(Single.just(map))
+        `when`(collectionInteractor.getArtCollectionByMaker(anyInt())).thenReturn(
+            Single.just(
+                Result.Success(
+                    map
+                )
+            )
+        )
 
         mainViewModel.loadNextCollection()
         val value = mainViewModel.collectionLiveData.getOrAwaitValue()
@@ -58,8 +65,14 @@ class MainViewModelTest {
     fun `load collection two times`() {
         val mainViewModel = MainViewModel(collectionInteractor, schedulerProvider)
 
-        val map = mock<ArtDataMap>()
-        `when`(collectionInteractor.getArtCollectionByMaker(anyInt())).thenReturn(Single.just(map))
+        val map = mock<ArtEntityMap>()
+        `when`(collectionInteractor.getArtCollectionByMaker(anyInt())).thenReturn(
+            Single.just(
+                Result.Success(
+                    map
+                )
+            )
+        )
 
         mainViewModel.loadNextCollection()
         verify(collectionInteractor).getArtCollectionByMaker(1)
@@ -71,17 +84,29 @@ class MainViewModelTest {
     fun `load collection two times and with same maker`() {
         val mainViewModel = MainViewModel(collectionInteractor, schedulerProvider)
 
-        val artViewData1 = mock<ArtViewData> {
+        val artViewData1 = mock<ArtEntity> {
             on { id } doReturn "1"
         }
         val map1 = mapOf("maker" to listOf(artViewData1))
-        `when`(collectionInteractor.getArtCollectionByMaker(1)).thenReturn(Single.just(map1))
+        `when`(collectionInteractor.getArtCollectionByMaker(1)).thenReturn(
+            Single.just(
+                Result.Success(
+                    map1
+                )
+            )
+        )
 
-        val artViewData2 = mock<ArtViewData> {
+        val artViewData2 = mock<ArtEntity> {
             on { id } doReturn "2"
         }
         val map2 = mapOf("maker" to listOf(artViewData2))
-        `when`(collectionInteractor.getArtCollectionByMaker(2)).thenReturn(Single.just(map2))
+        `when`(collectionInteractor.getArtCollectionByMaker(2)).thenReturn(
+            Single.just(
+                Result.Success(
+                    map2
+                )
+            )
+        )
 
         mainViewModel.loadNextCollection()
         verify(collectionInteractor).getArtCollectionByMaker(1)
@@ -108,17 +133,29 @@ class MainViewModelTest {
     fun `load collection two times and with different makers`() {
         val mainViewModel = MainViewModel(collectionInteractor, schedulerProvider)
 
-        val artViewData1 = mock<ArtViewData> {
+        val artViewData1 = mock<ArtEntity> {
             on { id } doReturn "1"
         }
         val map1 = mapOf("maker1" to listOf(artViewData1))
-        `when`(collectionInteractor.getArtCollectionByMaker(1)).thenReturn(Single.just(map1))
+        `when`(collectionInteractor.getArtCollectionByMaker(1)).thenReturn(
+            Single.just(
+                Result.Success(
+                    map1
+                )
+            )
+        )
 
-        val artViewData2 = mock<ArtViewData> {
+        val artViewData2 = mock<ArtEntity> {
             on { id } doReturn "2"
         }
         val map2 = mapOf("maker2" to listOf(artViewData2))
-        `when`(collectionInteractor.getArtCollectionByMaker(2)).thenReturn(Single.just(map2))
+        `when`(collectionInteractor.getArtCollectionByMaker(2)).thenReturn(
+            Single.just(
+                Result.Success(
+                    map2
+                )
+            )
+        )
 
         mainViewModel.loadNextCollection()
         verify(collectionInteractor).getArtCollectionByMaker(1)

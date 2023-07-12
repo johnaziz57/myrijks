@@ -1,6 +1,6 @@
 package com.example.myrijks.domain.error
 
-import com.example.myrijks.domain.error.model.ErrorEntity
+import com.example.myrijks.domain.model.error.ErrorEntity
 import retrofit2.HttpException
 import java.io.IOException
 import java.net.HttpURLConnection

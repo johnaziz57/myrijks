@@ -1,5 +1,8 @@
 package com.example.myrijks.ui.feature.main.model
 
+import com.example.myrijks.domain.model.main.ArtEntity
+import com.example.myrijks.domain.model.main.MakerEntity
+
 sealed class ItemWrapper<T>(val item: T, val type: ItemWrapperType) {
 
     enum class ItemWrapperType {
@@ -9,8 +12,8 @@ sealed class ItemWrapper<T>(val item: T, val type: ItemWrapperType) {
 
 }
 
-class ArtItemWrapper(artViewData: ArtViewData) :
-    ItemWrapper<ArtViewData>(artViewData, ItemWrapperType.ART)
+class ArtItemWrapper(artEntity: ArtEntity) :
+    ItemWrapper<ArtEntity>(artEntity, ItemWrapperType.ART)
 
-class MakerItemWrapper(makerViewData: MakerViewData) :
-    ItemWrapper<MakerViewData>(makerViewData, ItemWrapperType.MAKER)
+class MakerItemWrapper(makerEntity: MakerEntity) :
+    ItemWrapper<MakerEntity>(makerEntity, ItemWrapperType.MAKER)
