@@ -3,6 +3,7 @@ package com.example.myrijks.ui.feature.details
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.myrijks.domain.interactor.CollectionInteractor
+import com.example.myrijks.domain.util.Result
 import com.example.myrijks.ui.feature.details.model.ArtDetailsViewData
 import com.example.myrijks.ui.model.ResultStatus
 import com.example.myrijks.ui.viewmodel.BaseViewModel
@@ -29,9 +30,20 @@ class DetailsViewModel @Inject constructor(
     fun getArtObjectDetails(artObjectId: String) {
         execute(
             single = collectionInteractor.getArtObjectDetails(artObjectId),
-            onSuccess = { _artDetails.value = it },
-            onError = {},
-            resultStatusLiveData = _resultStatus
+            onSuccess = {
+                when (it) {
+                    is Result.Success -> {
+                        val x = it.data
+                        _artDetails.value = x
+                    }
+
+                    is Result.Error -> {
+                        _error.value = "error"
+                    }
+                }
+
+            },
+            onError = {}
         )
     }
 }
