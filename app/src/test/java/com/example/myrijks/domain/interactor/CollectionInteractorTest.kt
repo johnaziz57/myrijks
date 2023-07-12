@@ -4,9 +4,9 @@ import com.example.myrijks.data.model.ArtCollectionResponse
 import com.example.myrijks.data.model.ArtObject
 import com.example.myrijks.data.model.ArtObjectDetails
 import com.example.myrijks.data.model.ArtObjectDetailsResponse
-import com.example.myrijks.data.repo.CollectionRepository
 import com.example.myrijks.domain.mapper.ArtDataMapper
 import com.example.myrijks.domain.mapper.ArtDetailsMapper
+import com.example.myrijks.domain.repo.CollectionRepository
 import com.example.myrijks.ui.feature.details.model.ArtDetailsViewData
 import com.example.myrijks.ui.feature.main.model.ArtViewData
 import io.reactivex.rxjava3.android.plugins.RxAndroidPlugins
