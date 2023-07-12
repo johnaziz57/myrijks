@@ -1,7 +1,7 @@
 package com.example.myrijks.data.di
 
-import com.example.myrijks.data.repo.CollectionRepository
 import com.example.myrijks.data.repo.CollectionRepositoryImpl
+import com.example.myrijks.domain.repo.CollectionRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
