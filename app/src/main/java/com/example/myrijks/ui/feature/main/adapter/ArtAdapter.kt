@@ -17,11 +17,16 @@ import com.example.myrijks.ui.util.viewBinding
 class ArtAdapter(private val itemClickListener: ItemClickListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    companion object {
+        private const val ART = 1
+        private const val MAKER = 2
+    }
+
     private var items = emptyList<ItemWrapper<*>>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when (viewType) {
-            ItemWrapper.ItemWrapperType.ART.ordinal -> {
+            ART -> {
                 val itemBinding =
                     parent.viewBinding { layoutInflater, viewGroup, isAttachToParent ->
                         ItemArtBinding.inflate(
@@ -32,7 +37,8 @@ class ArtAdapter(private val itemClickListener: ItemClickListener) :
                     }
                 return ArtViewHolder(itemBinding, itemClickListener)
             }
-            ItemWrapper.ItemWrapperType.MAKER.ordinal -> {
+
+            MAKER -> {
                 val itemBinding =
                     parent.viewBinding { layoutInflater, viewGroup, isAttachToParent ->
                         ItemMakerBinding.inflate(
@@ -43,6 +49,7 @@ class ArtAdapter(private val itemClickListener: ItemClickListener) :
                     }
                 return MakerViewHolder(itemBinding)
             }
+
             else -> {
                 throw IllegalArgumentException(
                     "Unable to create ViewHolder of type '%s'".format(
@@ -58,6 +65,7 @@ class ArtAdapter(private val itemClickListener: ItemClickListener) :
             is ArtItemWrapper -> {
                 (holder as ArtViewHolder).bind(item.item)
             }
+
             is MakerItemWrapper -> {
                 (holder as MakerViewHolder).bind(item.item)
             }
@@ -65,7 +73,10 @@ class ArtAdapter(private val itemClickListener: ItemClickListener) :
     }
 
     override fun getItemViewType(position: Int): Int {
-        return items[position].type.ordinal
+        return when (items[position]) {
+            is ArtItemWrapper -> ART
+            is MakerItemWrapper -> MAKER
+        }
     }
 
     override fun getItemCount(): Int = items.size
