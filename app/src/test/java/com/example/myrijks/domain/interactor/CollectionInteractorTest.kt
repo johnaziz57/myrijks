@@ -10,6 +10,7 @@ import com.example.myrijks.domain.mapper.ArtDetailsMapper
 import com.example.myrijks.domain.model.details.ArtDetailsEntity
 import com.example.myrijks.domain.model.main.ArtEntity
 import com.example.myrijks.domain.repo.CollectionRepository
+import com.example.myrijks.domain.util.Result
 import io.reactivex.rxjava3.android.plugins.RxAndroidPlugins
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.plugins.RxJavaPlugins
@@ -100,7 +101,7 @@ class CollectionInteractorTest {
         testObserver
             .assertNoErrors()
             .assertComplete()
-        Assert.assertEquals(mapOf("artist" to listOf(artViewData)), testObserver.values()[0])
+        Assert.assertEquals(Result.Success(mapOf("artist" to listOf(artViewData))), testObserver.values()[0])
     }
 
     @Test
@@ -125,6 +126,6 @@ class CollectionInteractorTest {
         testObserver
             .assertNoErrors()
             .assertComplete()
-        Assert.assertEquals(artDetailsViewData, testObserver.values()[0])
+        Assert.assertEquals(Result.Success(artDetailsViewData), testObserver.values()[0])
     }
 }
