@@ -3,6 +3,7 @@ package com.example.myrijks.ui.feature.main
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.myrijks.domain.interactor.CollectionInteractor
 import com.example.myrijks.ui.feature.getOrAwaitValue
+import com.example.myrijks.ui.feature.main.model.ArtDataMap
 import com.example.myrijks.ui.feature.main.model.ArtItemWrapper
 import com.example.myrijks.ui.feature.main.model.ArtViewData
 import com.example.myrijks.ui.feature.main.model.MakerItemWrapper
@@ -57,7 +58,7 @@ class MainViewModelTest {
     fun `load collection two times`() {
         val mainViewModel = MainViewModel(collectionInteractor, schedulerProvider)
 
-        val map = mock<Map<String, List<ArtViewData>>>()
+        val map = mock<ArtDataMap>()
         `when`(collectionInteractor.getArtCollectionByMaker(anyInt())).thenReturn(Single.just(map))
 
         mainViewModel.loadNextCollection()

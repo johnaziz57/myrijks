@@ -3,11 +3,12 @@ package com.example.myrijks.ui.feature.main
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.myrijks.domain.interactor.CollectionInteractor
+import com.example.myrijks.ui.feature.main.model.ArtDataMap
 import com.example.myrijks.ui.feature.main.model.ArtItemWrapper
-import com.example.myrijks.ui.feature.main.model.ArtViewData
 import com.example.myrijks.ui.feature.main.model.ItemWrapper
 import com.example.myrijks.ui.feature.main.model.MakerItemWrapper
 import com.example.myrijks.ui.feature.main.model.MakerViewData
+import com.example.myrijks.ui.feature.main.model.MutableArtDataMap
 import com.example.myrijks.ui.model.ResultStatus
 import com.example.myrijks.ui.viewmodel.BaseViewModel
 import com.example.myrijks.ui.viewmodel.SchedulerProvider
@@ -31,7 +32,7 @@ class MainViewModel @Inject constructor(
 
     private val _resultStatus: MutableLiveData<ResultStatus> = MutableLiveData(ResultStatus.DEFAULT)
 
-    private val collectionMap: MutableMap<String, List<ArtViewData>> = mutableMapOf()
+    private val collectionMap: MutableArtDataMap = mutableMapOf()
     private var pageIndex = 1
     private var collectionDisposable: Disposable? = null
 
@@ -54,8 +55,8 @@ class MainViewModel @Inject constructor(
     }
 
     private fun mapToItemWrapper(
-        newCollectionMap: Map<String, List<ArtViewData>>,
-        currentCollectionMap: Map<String, List<ArtViewData>>
+        newCollectionMap: ArtDataMap,
+        currentCollectionMap: ArtDataMap
     ): List<ItemWrapper<*>> {
         return newCollectionMap.flatMap { entry ->
             val result = entry.value.map { ArtItemWrapper(it) }.toMutableList<ItemWrapper<*>>()
@@ -67,8 +68,8 @@ class MainViewModel @Inject constructor(
     }
 
     private fun synchronizeCollectionMap(
-        newCollectionMap: Map<String, List<ArtViewData>>,
-        currentCollectionMap: MutableMap<String, List<ArtViewData>>
+        newCollectionMap: ArtDataMap,
+        currentCollectionMap: MutableArtDataMap
     ) {
         newCollectionMap.entries.forEach { entry ->
             if (currentCollectionMap.containsKey(entry.key)) {
