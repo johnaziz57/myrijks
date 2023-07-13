@@ -14,7 +14,8 @@ class ArtDiffUtilCallback(
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         val oldItem = oldList[oldItemPosition]
         val newItem = newList[newItemPosition]
-        return newItem.type == oldItem.type && oldItem.item == newItem.item
+
+        return newItem::class == oldItem::class && oldItem.item == newItem.item
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {

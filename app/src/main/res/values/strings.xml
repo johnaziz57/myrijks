@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">MyRijks</string>
+    <string name="retry">Retry</string>
+    <string name="something_went_wrong">Something went wrong</string>
+    <string name="article_not_found">Article not found</string>
+    <string name="internet_connection_issues_please_check_connection">Internet connection issues, please check connection</string>
+    <string name="access_denied">Access denied</string>
 </resources>

@@ -2,7 +2,6 @@ package com.example.myrijks.ui.feature.main
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -13,6 +12,7 @@ import com.example.myrijks.R
 import com.example.myrijks.databinding.FragmentMainBinding
 import com.example.myrijks.ui.feature.main.adapter.ArtAdapter
 import com.example.myrijks.ui.model.ResultStatus
+import com.example.myrijks.ui.util.showSnackBar
 import com.example.myrijks.ui.util.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -24,7 +24,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.loadNextCollection()
+        loadData()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -53,17 +53,25 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         viewModel.resultStatusLiveData.observe(viewLifecycleOwner) {
             when (it) {
                 ResultStatus.ERROR -> {
-                    Toast.makeText(context, "Something went wrong", Toast.LENGTH_SHORT).show()
                     binding.progressBar.isVisible = false
                 }
+
                 ResultStatus.LOADING, ResultStatus.DEFAULT -> {
                     binding.progressBar.isVisible = true
                 }
+
                 else -> {
                     binding.progressBar.isVisible = false
                 }
             }
         }
+        viewModel.errorLiveData.observe(viewLifecycleOwner) {
+            it?.showSnackBar(this.requireView()) { loadData() }
+        }
+    }
+
+    private fun loadData() {
+        viewModel.loadNextCollection()
     }
 
 }

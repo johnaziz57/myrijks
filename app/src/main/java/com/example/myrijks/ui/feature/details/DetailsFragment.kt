@@ -3,7 +3,6 @@ package com.example.myrijks.ui.feature.details
 import android.content.Context
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -13,6 +12,7 @@ import coil.load
 import com.example.myrijks.R
 import com.example.myrijks.databinding.FragmentDetailsBinding
 import com.example.myrijks.ui.model.ResultStatus
+import com.example.myrijks.ui.util.showSnackBar
 import com.example.myrijks.ui.util.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,7 +25,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.getArtObjectDetails(args.artObjectId)
+        loadData()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -34,16 +34,23 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
                 ResultStatus.LOADING, ResultStatus.DEFAULT -> {
                     binding.progressBar.isVisible = true
                 }
+
                 ResultStatus.ERROR -> {
                     binding.progressBar.isVisible = false
-                    Toast.makeText(context, "Something went wrong", Toast.LENGTH_SHORT).show()
                 }
+
                 ResultStatus.SUCCESS -> {
                     binding.progressBar.isVisible = false
                     binding.scrollViewDetailsContainer.isVisible = true
                 }
+
                 else -> {}
             }
+        }
+        viewModel.errorLiveData.observe(viewLifecycleOwner) {
+            it?.showSnackBar(
+                this.requireView()
+            ) { loadData() }
         }
         viewModel.artDetailsLiveData.observe(viewLifecycleOwner) { viewData ->
             with(binding) {
@@ -106,5 +113,9 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
                 }
             }
         }
+    }
+
+    private fun loadData() {
+        viewModel.getArtObjectDetails(args.artObjectId)
     }
 }
