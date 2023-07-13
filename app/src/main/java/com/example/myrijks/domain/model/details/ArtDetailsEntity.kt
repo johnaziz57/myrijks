@@ -7,7 +7,7 @@ data class ArtDetailsEntity(
     val title: String,
     val subTitle: String,
     val scLabelLine: String,
-    val description: String,
+    val description: String = "",
     val physicalMedium: String,
     val dimensionDescription: String,
     val dating: String,

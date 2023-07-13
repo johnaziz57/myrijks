@@ -10,18 +10,18 @@ data class ArtObjectDetails(
     val objectNumber: String,
     val webImage: Image?,
     val colors: List<Color>,
-    val description: String,
+    val description: String?,
     val objectTypes: List<String>,
     val principalMakers: List<PrincipalMaker>,
-    val plaqueDescriptionEnglish: String,
+    val plaqueDescriptionEnglish: String?,
     val materials: List<String>,
     val productionPlaces: List<String>,
     val dating: Dating,
     val dimensions: List<Dimension>,
-    val physicalMedium: String,
-    val longTitle: String,
-    val subTitle: String,
-    val scLabelLine: String,
+    val physicalMedium: String?,
+    val longTitle: String?,
+    val subTitle: String?,
+    val scLabelLine: String?,
 )
 
 data class Color(
@@ -32,18 +32,16 @@ data class Color(
 data class PrincipalMaker(
     val name: String,
     val unFixedName: String,
-    val placeOfBirth: String,
-    val dateOfBirth: String,
+    val placeOfBirth: String?,
+    val dateOfBirth: String?,
     val dateOfBirthPrecision: Any?,
-    val dateOfDeath: String,
+    val dateOfDeath: String?,
     val dateOfDeathPrecision: Any?,
-    val placeOfDeath: String,
+    val placeOfDeath: String?,
     val occupation: List<String>,
     val roles: List<String>,
-    val nationality: String,
-    val biography: Any?,
+    val nationality: String?,
     val productionPlaces: List<String>,
-    val qualification: Any?,
 )
 
 data class Dating(
@@ -57,6 +55,5 @@ data class Dating(
 data class Dimension(
     val unit: String,
     val type: String,
-    val part: Any?,
     val value: String,
 )
