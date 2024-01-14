@@ -11,7 +11,7 @@ class CollectionRepositoryImpl @Inject constructor(
     private val rijksService: RijksService
 ) : CollectionRepository {
 
-    override fun getCollection(pageIndex: Int): Single<ArtCollectionResponse> {
+    override suspend fun getCollection(pageIndex: Int): ArtCollectionResponse {
         return rijksService.getCollection(pageIndex = pageIndex)
     }
 

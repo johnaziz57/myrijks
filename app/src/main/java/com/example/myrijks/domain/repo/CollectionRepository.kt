@@ -5,7 +5,7 @@ import com.example.myrijks.data.model.ArtObjectDetailsResponse
 import io.reactivex.rxjava3.core.Single
 
 interface CollectionRepository {
-    fun getCollection(pageIndex: Int): Single<ArtCollectionResponse>
+    suspend fun getCollection(pageIndex: Int): ArtCollectionResponse
 
     fun getArtObjectDetails(artObjectId: String): Single<ArtObjectDetailsResponse>
 }

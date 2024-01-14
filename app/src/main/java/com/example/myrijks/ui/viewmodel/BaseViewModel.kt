@@ -3,12 +3,14 @@ package com.example.myrijks.ui.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.myrijks.domain.model.error.ErrorEntity
 import com.example.myrijks.domain.util.Result
 import com.example.myrijks.ui.model.ResultStatus
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
+import kotlinx.coroutines.launch
 
 abstract class BaseViewModel(schedulerProvider: SchedulerProvider) : ViewModel() {
 
@@ -27,6 +29,26 @@ abstract class BaseViewModel(schedulerProvider: SchedulerProvider) : ViewModel()
     override fun onCleared() {
         disposables.clear()
         super.onCleared()
+    }
+
+    fun <T> execute(
+        coroutineCall: suspend () -> Result<T>,
+        onSuccess: (T) -> Unit
+    ) {
+        viewModelScope.launch {
+            _resultStatus.value = ResultStatus.LOADING
+            when (val result = coroutineCall.invoke()) {
+                is Result.Success -> {
+                    onSuccess(result.data)
+                    _resultStatus.value = ResultStatus.SUCCESS
+                    _error.value = null
+                }
+
+                is Result.Error -> {
+                    handleError(result.error)
+                }
+            }
+        }
     }
 
     fun <T : Any> execute(

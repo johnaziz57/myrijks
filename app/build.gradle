@@ -10,7 +10,7 @@ apply from: "local.gradle"
 
 android {
     namespace 'com.example.myrijks'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.example.myrijks"
@@ -42,17 +42,20 @@ android {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'androidx.core:core-ktx:1.12.0'
+    implementation 'com.google.android.material:material:1.11.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.1'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'
-    implementation "androidx.fragment:fragment-ktx:1.5.6"
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.7.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0'
+    implementation "androidx.fragment:fragment-ktx:1.6.2"
 
     // RxJava
     implementation "io.reactivex.rxjava3:rxandroid:3.0.0"
     implementation "io.reactivex.rxjava3:rxjava:3.1.5"
     implementation "io.reactivex.rxjava3:rxkotlin:3.0.1"
+
+    // Coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
 
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:2.9.0"

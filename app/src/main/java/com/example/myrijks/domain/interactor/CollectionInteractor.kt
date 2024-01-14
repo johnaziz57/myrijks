@@ -7,9 +7,9 @@ import com.example.myrijks.domain.util.Result
 import io.reactivex.rxjava3.core.Single
 
 interface CollectionInteractor {
-    fun getArtCollection(): Single<Result<List<ArtEntity>>>
+    suspend fun getArtCollection(): Result<List<ArtEntity>>
 
-    fun getArtCollectionByMaker(pageIndex: Int): Single<Result<ArtEntityMap>>
+    suspend fun getArtCollectionByMaker(pageIndex: Int): Result<ArtEntityMap>
 
     fun getArtObjectDetails(artObjectId: String): Single<Result<ArtDetailsEntity>>
 }

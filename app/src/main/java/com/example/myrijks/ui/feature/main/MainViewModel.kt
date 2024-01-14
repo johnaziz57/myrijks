@@ -12,7 +12,6 @@ import com.example.myrijks.ui.feature.main.model.MakerItemWrapper
 import com.example.myrijks.ui.viewmodel.BaseViewModel
 import com.example.myrijks.ui.viewmodel.SchedulerProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.rxjava3.disposables.Disposable
 import javax.inject.Inject
 
 @HiltViewModel
@@ -29,12 +28,10 @@ class MainViewModel @Inject constructor(
 
     private val collectionMap: MutableArtEntityMap = mutableMapOf()
     private var pageIndex = 1
-    private var collectionDisposable: Disposable? = null
 
     fun loadNextCollection() {
-        if (collectionDisposable?.isDisposed?.not() == true) return
-        collectionDisposable = execute(
-            single = collectionInteractor.getArtCollectionByMaker(pageIndex),
+        execute(
+            coroutineCall = { collectionInteractor.getArtCollectionByMaker(pageIndex) },
             onSuccess = {
                 val collection = mapToItemWrapper(it, collectionMap)
                 synchronizeCollectionMap(it, collectionMap)

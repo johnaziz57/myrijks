@@ -9,10 +9,10 @@ import retrofit2.http.Query
 
 interface RijksService {
     @GET("/api/en/collection")
-    fun getCollection(
+    suspend fun getCollection(
         @Query("s") sort: String = "artist",
         @Query("p") pageIndex: Int
-    ): Single<ArtCollectionResponse>
+    ): ArtCollectionResponse
 
     @GET("/api/en/collection/{artObjectId}")
     fun getArtObjectDetails(@Path("artObjectId") artObjectId: String): Single<ArtObjectDetailsResponse>
