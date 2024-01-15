@@ -22,7 +22,7 @@ class DetailsViewModel @Inject constructor(
 
     fun getArtObjectDetails(artObjectId: String) {
         execute(
-            single = collectionInteractor.getArtObjectDetails(artObjectId),
+            coroutineCall = { collectionInteractor.getArtObjectDetails(artObjectId) },
             onSuccess = { _artDetails.value = it }
         )
     }
