@@ -1,15 +1,16 @@
 package com.example.myrijks.ui.feature.main
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.myrijks.domain.interactor.CollectionInteractor
 import com.example.myrijks.domain.model.main.ArtEntity
 import com.example.myrijks.domain.model.main.ArtEntityMap
 import com.example.myrijks.domain.util.Result
+import com.example.myrijks.testutils.MainDispatcherInstantRule
 import com.example.myrijks.ui.feature.getOrAwaitValue
 import com.example.myrijks.ui.feature.main.model.ArtItemWrapper
 import com.example.myrijks.ui.feature.main.model.MakerItemWrapper
 import com.example.myrijks.ui.viewmodel.TestSchedulerProviderImpl
-import io.reactivex.rxjava3.core.Single
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
@@ -22,10 +23,11 @@ import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 
+@ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
 class MainViewModelTest {
     @get:Rule
-    val instantExecutorRule = InstantTaskExecutorRule()
+    val instantExecutorRule = MainDispatcherInstantRule()
 
     @Mock
     lateinit var collectionInteractor: CollectionInteractor
@@ -33,7 +35,7 @@ class MainViewModelTest {
     private val schedulerProvider = TestSchedulerProviderImpl()
 
     @Test
-    fun `load collection`() {
+    fun `load collection`() = runTest {
         val mainViewModel = MainViewModel(collectionInteractor, schedulerProvider)
 
         val artViewData = mock<ArtEntity> {
@@ -41,11 +43,7 @@ class MainViewModelTest {
         }
         val map = mapOf("maker" to listOf(artViewData))
         `when`(collectionInteractor.getArtCollectionByMaker(anyInt())).thenReturn(
-            Single.just(
-                Result.Success(
-                    map
-                )
-            )
+            Result.Success(map)
         )
 
         mainViewModel.loadNextCollection()
@@ -62,16 +60,12 @@ class MainViewModelTest {
     }
 
     @Test
-    fun `load collection two times`() {
+    fun `load collection two times`() = runTest {
         val mainViewModel = MainViewModel(collectionInteractor, schedulerProvider)
 
         val map = mock<ArtEntityMap>()
         `when`(collectionInteractor.getArtCollectionByMaker(anyInt())).thenReturn(
-            Single.just(
-                Result.Success(
-                    map
-                )
-            )
+            Result.Success(map)
         )
 
         mainViewModel.loadNextCollection()
@@ -81,7 +75,7 @@ class MainViewModelTest {
     }
 
     @Test
-    fun `load collection two times and with same maker`() {
+    fun `load collection two times and with same maker`() = runTest {
         val mainViewModel = MainViewModel(collectionInteractor, schedulerProvider)
 
         val artViewData1 = mock<ArtEntity> {
@@ -89,11 +83,7 @@ class MainViewModelTest {
         }
         val map1 = mapOf("maker" to listOf(artViewData1))
         `when`(collectionInteractor.getArtCollectionByMaker(1)).thenReturn(
-            Single.just(
-                Result.Success(
-                    map1
-                )
-            )
+            Result.Success(map1)
         )
 
         val artViewData2 = mock<ArtEntity> {
@@ -101,11 +91,7 @@ class MainViewModelTest {
         }
         val map2 = mapOf("maker" to listOf(artViewData2))
         `when`(collectionInteractor.getArtCollectionByMaker(2)).thenReturn(
-            Single.just(
-                Result.Success(
-                    map2
-                )
-            )
+            Result.Success(map2)
         )
 
         mainViewModel.loadNextCollection()
@@ -130,7 +116,7 @@ class MainViewModelTest {
     }
 
     @Test
-    fun `load collection two times and with different makers`() {
+    fun `load collection two times and with different makers`() = runTest {
         val mainViewModel = MainViewModel(collectionInteractor, schedulerProvider)
 
         val artViewData1 = mock<ArtEntity> {
@@ -138,11 +124,7 @@ class MainViewModelTest {
         }
         val map1 = mapOf("maker1" to listOf(artViewData1))
         `when`(collectionInteractor.getArtCollectionByMaker(1)).thenReturn(
-            Single.just(
-                Result.Success(
-                    map1
-                )
-            )
+            Result.Success(map1)
         )
 
         val artViewData2 = mock<ArtEntity> {
@@ -150,11 +132,7 @@ class MainViewModelTest {
         }
         val map2 = mapOf("maker2" to listOf(artViewData2))
         `when`(collectionInteractor.getArtCollectionByMaker(2)).thenReturn(
-            Single.just(
-                Result.Success(
-                    map2
-                )
-            )
+            Result.Success(map2)
         )
 
         mainViewModel.loadNextCollection()

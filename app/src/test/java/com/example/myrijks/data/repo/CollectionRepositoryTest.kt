@@ -4,9 +4,9 @@ import com.example.myrijks.data.api.RijksService
 import com.example.myrijks.data.model.ArtCollectionResponse
 import com.example.myrijks.data.model.ArtObjectDetailsResponse
 import io.reactivex.rxjava3.android.plugins.RxAndroidPlugins
-import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.plugins.RxJavaPlugins
 import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.test.runTest
 import org.junit.AfterClass
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -53,36 +53,25 @@ class CollectionRepositoryTest {
     }
 
     @Test
-    fun `test get collection`() {
+    fun `test get collection`() = runTest {
         val artCollectionResponse = mock<ArtCollectionResponse>()
         `when`(rijksService.getCollection(sort = anyString(), pageIndex = anyInt())).thenReturn(
-            Single.just(
-                artCollectionResponse
-            )
+            artCollectionResponse
         )
 
-        val testObserver = collectionRepo.getCollection(1).test()
-
-        testObserver
-            .assertNoErrors()
-            .assertComplete()
-        assertEquals(artCollectionResponse, testObserver.values()[0])
+        val response = collectionRepo.getCollection(1)
+        assertEquals(artCollectionResponse, response)
     }
 
     @Test
-    fun `test get art object details`() {
+    fun `test get art object details`() = runTest {
         val artCollectionResponse = mock<ArtObjectDetailsResponse>()
         `when`(rijksService.getArtObjectDetails(artObjectId = anyString())).thenReturn(
-            Single.just(
-                artCollectionResponse
-            )
+            artCollectionResponse
         )
 
-        val testObserver = collectionRepo.getArtObjectDetails("id").test()
+        val response = collectionRepo.getArtObjectDetails("id")
 
-        testObserver
-            .assertNoErrors()
-            .assertComplete()
-        assertEquals(artCollectionResponse, testObserver.values()[0])
+        assertEquals(artCollectionResponse, response)
     }
 }

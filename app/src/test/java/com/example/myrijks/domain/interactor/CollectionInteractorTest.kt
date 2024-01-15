@@ -12,9 +12,9 @@ import com.example.myrijks.domain.model.main.ArtEntity
 import com.example.myrijks.domain.repo.CollectionRepository
 import com.example.myrijks.domain.util.Result
 import io.reactivex.rxjava3.android.plugins.RxAndroidPlugins
-import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.plugins.RxJavaPlugins
 import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.test.runTest
 import org.junit.AfterClass
 import org.junit.Assert
 import org.junit.Before
@@ -79,7 +79,7 @@ class CollectionInteractorTest {
     }
 
     @Test
-    fun `test get collection`() {
+    fun `test get collection`() = runTest {
         val artObject = mock<ArtObject>()
         val artCollectionResponse = mock<ArtCollectionResponse> {
             on { artObjects } doReturn listOf(artObject)
@@ -90,22 +90,17 @@ class CollectionInteractorTest {
         }
 
         `when`(collectionRepository.getCollection(pageIndex = anyInt())).thenReturn(
-            Single.just(
                 artCollectionResponse
-            )
         )
         `when`(artDataMapper.mapToArtEntity(artObject)).thenReturn(artViewData)
 
-        val testObserver = collectionInteractor.getArtCollectionByMaker(1).test()
+        val response = collectionInteractor.getArtCollectionByMaker(1)
 
-        testObserver
-            .assertNoErrors()
-            .assertComplete()
-        Assert.assertEquals(Result.Success(mapOf("artist" to listOf(artViewData))), testObserver.values()[0])
+        Assert.assertEquals(Result.Success(mapOf("artist" to listOf(artViewData))), response)
     }
 
     @Test
-    fun `test get art object details`() {
+    fun `test get art object details`() = runTest {
         val artObjectDetails = mock<ArtObjectDetails>()
         val artObjectDetailsResponse = mock<ArtObjectDetailsResponse> {
             on { artObject } doReturn artObjectDetails
@@ -114,18 +109,15 @@ class CollectionInteractorTest {
         val artDetailsViewData = mock<ArtDetailsEntity>()
 
         `when`(collectionRepository.getArtObjectDetails(artObjectId = anyString())).thenReturn(
-            Single.just(artObjectDetailsResponse)
+            artObjectDetailsResponse
         )
 
         `when`(artDetailsMapper.mapToArtDetailsEntity(artObjectDetails)).thenReturn(
             artDetailsViewData
         )
 
-        val testObserver = collectionInteractor.getArtObjectDetails("id").test()
+        val response = collectionInteractor.getArtObjectDetails("id")
 
-        testObserver
-            .assertNoErrors()
-            .assertComplete()
-        Assert.assertEquals(Result.Success(artDetailsViewData), testObserver.values()[0])
+        Assert.assertEquals(Result.Success(artDetailsViewData), response)
     }
 }
