@@ -11,14 +11,9 @@ import com.example.myrijks.domain.model.details.ArtDetailsEntity
 import com.example.myrijks.domain.model.main.ArtEntity
 import com.example.myrijks.domain.repo.CollectionRepository
 import com.example.myrijks.domain.util.Result
-import io.reactivex.rxjava3.android.plugins.RxAndroidPlugins
-import io.reactivex.rxjava3.plugins.RxJavaPlugins
-import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.test.runTest
-import org.junit.AfterClass
 import org.junit.Assert
 import org.junit.Before
-import org.junit.BeforeClass
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
@@ -32,23 +27,6 @@ import org.mockito.kotlin.mock
 
 @RunWith(MockitoJUnitRunner::class)
 class CollectionInteractorTest {
-    companion object {
-        @BeforeClass
-        @JvmStatic
-        fun before() {
-            RxAndroidPlugins.reset()
-            RxJavaPlugins.reset()
-            RxJavaPlugins.setIoSchedulerHandler { Schedulers.trampoline() }
-            RxAndroidPlugins.setInitMainThreadSchedulerHandler { Schedulers.trampoline() }
-        }
-
-        @AfterClass
-        @JvmStatic
-        fun after() {
-            RxAndroidPlugins.reset()
-            RxJavaPlugins.reset()
-        }
-    }
 
     @Mock
     private lateinit var collectionRepository: CollectionRepository

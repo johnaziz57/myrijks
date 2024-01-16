@@ -5,7 +5,6 @@ import com.example.myrijks.domain.interactor.CollectionInteractor
 import com.example.myrijks.domain.model.details.ArtDetailsEntity
 import com.example.myrijks.domain.util.Result
 import com.example.myrijks.testutils.MainDispatcherInstantRule
-import com.example.myrijks.ui.viewmodel.TestSchedulerProviderImpl
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
@@ -29,11 +28,9 @@ class DetailsViewModelTest {
     @Mock
     lateinit var collectionInteractor: CollectionInteractor
 
-    private val schedulerProvider = TestSchedulerProviderImpl()
-
     @Test
     fun getArtObjectDetails() = runTest {
-        val detailsViewModel = DetailsViewModel(collectionInteractor, schedulerProvider)
+        val detailsViewModel = DetailsViewModel(collectionInteractor)
 
         val artDetailsEntity = mock<ArtDetailsEntity>()
         `when`(collectionInteractor.getArtObjectDetails(anyString())).thenReturn(

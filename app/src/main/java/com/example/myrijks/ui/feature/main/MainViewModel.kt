@@ -10,15 +10,13 @@ import com.example.myrijks.ui.feature.main.model.ArtItemWrapper
 import com.example.myrijks.ui.feature.main.model.ItemWrapper
 import com.example.myrijks.ui.feature.main.model.MakerItemWrapper
 import com.example.myrijks.ui.viewmodel.BaseViewModel
-import com.example.myrijks.ui.viewmodel.SchedulerProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val collectionInteractor: CollectionInteractor,
-    schedulerProvider: SchedulerProvider
-) : BaseViewModel(schedulerProvider) {
+) : BaseViewModel() {
 
     val collectionLiveData: LiveData<List<ItemWrapper<*>>>
         get() = _collection

@@ -8,7 +8,6 @@ import com.example.myrijks.testutils.MainDispatcherInstantRule
 import com.example.myrijks.ui.feature.getOrAwaitValue
 import com.example.myrijks.ui.feature.main.model.ArtItemWrapper
 import com.example.myrijks.ui.feature.main.model.MakerItemWrapper
-import com.example.myrijks.ui.viewmodel.TestSchedulerProviderImpl
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
@@ -32,11 +31,9 @@ class MainViewModelTest {
     @Mock
     lateinit var collectionInteractor: CollectionInteractor
 
-    private val schedulerProvider = TestSchedulerProviderImpl()
-
     @Test
     fun `load collection`() = runTest {
-        val mainViewModel = MainViewModel(collectionInteractor, schedulerProvider)
+        val mainViewModel = MainViewModel(collectionInteractor)
 
         val artViewData = mock<ArtEntity> {
             on { principalOrFirstMaker } doReturn "maker"
@@ -61,7 +58,7 @@ class MainViewModelTest {
 
     @Test
     fun `load collection two times`() = runTest {
-        val mainViewModel = MainViewModel(collectionInteractor, schedulerProvider)
+        val mainViewModel = MainViewModel(collectionInteractor)
 
         val map = mock<ArtEntityMap>()
         `when`(collectionInteractor.getArtCollectionByMaker(anyInt())).thenReturn(
@@ -76,7 +73,7 @@ class MainViewModelTest {
 
     @Test
     fun `load collection two times and with same maker`() = runTest {
-        val mainViewModel = MainViewModel(collectionInteractor, schedulerProvider)
+        val mainViewModel = MainViewModel(collectionInteractor)
 
         val artViewData1 = mock<ArtEntity> {
             on { id } doReturn "1"
@@ -117,7 +114,7 @@ class MainViewModelTest {
 
     @Test
     fun `load collection two times and with different makers`() = runTest {
-        val mainViewModel = MainViewModel(collectionInteractor, schedulerProvider)
+        val mainViewModel = MainViewModel(collectionInteractor)
 
         val artViewData1 = mock<ArtEntity> {
             on { id } doReturn "1"
