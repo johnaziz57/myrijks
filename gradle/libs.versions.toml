@@ -1,0 +1,49 @@
+[versions]
+androidx-core-ktx = "1.5.0"
+coil = "2.3.0"
+constraintlayout = "2.1.4"
+core-ktx = "1.12.0"
+core-testing = "2.2.0"
+fragment-ktx = "1.6.2"
+hilt-android = "2.44.2"
+junit = "4.13.2"
+junit-ktx = "1.1.5"
+kotlinx-coroutines-android = "1.7.3"
+legacy-support-v4 = "1.0.0"
+lifecycle = "2.7.0"
+material = "1.11.0"
+mockito-core = "5.7.0"
+mockito-inline = "3.2.0"
+mockito-kotlin = "5.2.1"
+navigation = "2.7.6"
+retrofit = "2.9.0"
+robolectric = "4.8.1"
+
+[libraries]
+androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
+androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "core-ktx" }
+androidx-core-testing = { module = "androidx.arch.core:core-testing", version.ref = "core-testing" }
+androidx-fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragment-ktx" }
+androidx-junit-ext = { module = "androidx.test.ext:junit", version.ref = "junit-ktx" }
+androidx-junit-ktx = { module = "androidx.test.ext:junit-ktx", version.ref = "junit-ktx" }
+androidx-legacy-support-v4 = { module = "androidx.legacy:legacy-support-v4", version.ref = "legacy-support-v4" }
+androidx-lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycle" }
+androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
+androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigation" }
+androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigation" }
+coil = { module = "io.coil-kt:coil", version.ref = "coil" }
+converter-moshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "retrofit" }
+core-ktx = { module = "androidx.test:core-ktx", version.ref = "androidx-core-ktx" }
+hilt-android-lib = { module = "com.google.dagger:hilt-android", version.ref = "hilt-android" }
+hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt-android" }
+junit-lib = { module = "junit:junit", version.ref = "junit" }
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines-android" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines-android" }
+material = { module = "com.google.android.material:material", version.ref = "material" }
+mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito-core" }
+mockito-inline = { module = "org.mockito:mockito-inline", version.ref = "mockito-inline" }
+mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockito-kotlin" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
+
+[plugins]
