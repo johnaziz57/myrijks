@@ -8,7 +8,12 @@ import com.example.myrijks.domain.util.Result
 import com.example.myrijks.ui.feature.getOrAwaitValue
 import com.example.myrijks.ui.feature.main.model.ArtItemWrapper
 import com.example.myrijks.ui.feature.main.model.MakerItemWrapper
+import com.example.myrijks.ui.viewmodels.MainDispatcherRule
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.test.setMain
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Rule
@@ -22,10 +27,15 @@ import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 
+@OptIn(ExperimentalCoroutinesApi::class)
 @RunWith(MockitoJUnitRunner::class)
 class MainViewModelTest {
+
     @get:Rule
     val instantExecutorRule = InstantTaskExecutorRule()
+
+    @get:Rule
+    val mainDispatcherRule = MainDispatcherRule()
 
     @Mock
     lateinit var collectionInteractor: CollectionInteractor
@@ -40,9 +50,9 @@ class MainViewModelTest {
         }
         val map = mapOf("maker" to listOf(artViewData))
         `when`(collectionInteractor.getArtCollectionByMaker(anyInt())).thenReturn(
-                Result.Success(
-                    map
-                )
+            Result.Success(
+                map
+            )
         )
 
         mainViewModel.loadNextCollection()
@@ -64,9 +74,9 @@ class MainViewModelTest {
 
         val map = mock<ArtEntityMap>()
         `when`(collectionInteractor.getArtCollectionByMaker(anyInt())).thenReturn(
-                Result.Success(
-                    map
-                )
+            Result.Success(
+                map
+            )
         )
 
         mainViewModel.loadNextCollection()
@@ -77,6 +87,9 @@ class MainViewModelTest {
 
     @Test
     fun `load collection two times and with same maker`() = runTest {
+        val testDispatcher = UnconfinedTestDispatcher(testScheduler)
+        Dispatchers.setMain(testDispatcher)
+
         val mainViewModel = MainViewModel(collectionInteractor)
 
         val artViewData1 = mock<ArtEntity> {
@@ -84,9 +97,9 @@ class MainViewModelTest {
         }
         val map1 = mapOf("maker" to listOf(artViewData1))
         `when`(collectionInteractor.getArtCollectionByMaker(1)).thenReturn(
-                Result.Success(
-                    map1
-                )
+            Result.Success(
+                map1
+            )
         )
 
         val artViewData2 = mock<ArtEntity> {
@@ -94,9 +107,9 @@ class MainViewModelTest {
         }
         val map2 = mapOf("maker" to listOf(artViewData2))
         `when`(collectionInteractor.getArtCollectionByMaker(2)).thenReturn(
-                Result.Success(
-                    map2
-                )
+            Result.Success(
+                map2
+            )
 
         )
 
@@ -130,9 +143,9 @@ class MainViewModelTest {
         }
         val map1 = mapOf("maker1" to listOf(artViewData1))
         `when`(collectionInteractor.getArtCollectionByMaker(1)).thenReturn(
-                Result.Success(
-                    map1
-                )
+            Result.Success(
+                map1
+            )
 
         )
 
@@ -141,9 +154,9 @@ class MainViewModelTest {
         }
         val map2 = mapOf("maker2" to listOf(artViewData2))
         `when`(collectionInteractor.getArtCollectionByMaker(2)).thenReturn(
-                Result.Success(
-                    map2
-                )
+            Result.Success(
+                map2
+            )
 
         )
 

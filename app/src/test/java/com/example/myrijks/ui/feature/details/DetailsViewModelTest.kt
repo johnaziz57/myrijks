@@ -5,8 +5,8 @@ import androidx.lifecycle.Observer
 import com.example.myrijks.domain.interactor.CollectionInteractor
 import com.example.myrijks.domain.model.details.ArtDetailsEntity
 import com.example.myrijks.domain.util.Result
-import com.example.myrijks.ui.viewmodel.TestSchedulerProviderImpl
 import io.reactivex.rxjava3.core.Single
+import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -26,17 +26,14 @@ class DetailsViewModelTest {
     @Mock
     lateinit var collectionInteractor: CollectionInteractor
 
-    private val schedulerProvider = TestSchedulerProviderImpl()
-
     @Test
-    fun getArtObjectDetails() {
-        val detailsViewModel = DetailsViewModel(collectionInteractor, schedulerProvider)
+    fun getArtObjectDetails() = runTest{
+        val detailsViewModel = DetailsViewModel(collectionInteractor,)
 
         val artDetailsEntity = mock<ArtDetailsEntity>()
         `when`(collectionInteractor.getArtObjectDetails(anyString())).thenReturn(
-            Single.just(
                 Result.Success(artDetailsEntity)
-            )
+
         )
 
         val observer = mock<Observer<ArtDetailsEntity>>()
