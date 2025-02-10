@@ -7,6 +7,7 @@ import io.reactivex.rxjava3.android.plugins.RxAndroidPlugins
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.plugins.RxJavaPlugins
 import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.test.runTest
 import org.junit.AfterClass
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -53,20 +54,15 @@ class CollectionRepositoryTest {
     }
 
     @Test
-    fun `test get collection`() {
+    fun `test get collection`() = runTest {
         val artCollectionResponse = mock<ArtCollectionResponse>()
         `when`(rijksService.getCollection(sort = anyString(), pageIndex = anyInt())).thenReturn(
-            Single.just(
-                artCollectionResponse
-            )
+            artCollectionResponse
         )
 
-        val testObserver = collectionRepo.getCollection(1).test()
+        val result = collectionRepo.getCollection(1)
 
-        testObserver
-            .assertNoErrors()
-            .assertComplete()
-        assertEquals(artCollectionResponse, testObserver.values()[0])
+        assertEquals(artCollectionResponse, result)
     }
 
     @Test

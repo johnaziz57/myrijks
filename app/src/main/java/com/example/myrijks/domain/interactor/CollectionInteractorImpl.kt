@@ -8,8 +8,6 @@ import com.example.myrijks.domain.model.main.ArtEntity
 import com.example.myrijks.domain.model.main.ArtEntityMap
 import com.example.myrijks.domain.repo.CollectionRepository
 import com.example.myrijks.domain.util.Result
-import com.example.myrijks.domain.util.toResult
-import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -41,11 +39,11 @@ class CollectionInteractorImpl @Inject constructor(
         }
     }
 
-    override fun getArtObjectDetails(artObjectId: String): Single<Result<ArtDetailsEntity>> {
-        return collectionRepository.getArtObjectDetails(artObjectId)
-            .map { artObjectDetails ->
-                artDetailsMapper.mapToArtDetailsEntity(artObjectDetails.artObject)
-            }.toResult(errorHandler)
+    override suspend fun getArtObjectDetails(artObjectId: String): Result<ArtDetailsEntity> {
+        return repositoryCall {
+            val artObjectDetails = collectionRepository.getArtObjectDetails(artObjectId)
+            artDetailsMapper.mapToArtDetailsEntity(artObjectDetails.artObject)
+        }
     }
 
     private suspend fun <T> repositoryCall(call: suspend () -> T): Result<T> {

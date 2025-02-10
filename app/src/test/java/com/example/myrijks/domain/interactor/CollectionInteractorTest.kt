@@ -15,6 +15,7 @@ import io.reactivex.rxjava3.android.plugins.RxAndroidPlugins
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.plugins.RxJavaPlugins
 import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.test.runTest
 import org.junit.AfterClass
 import org.junit.Assert
 import org.junit.Before
@@ -79,7 +80,7 @@ class CollectionInteractorTest {
     }
 
     @Test
-    fun `test get collection`() {
+    fun `test get collection`() = runTest {
         val artObject = mock<ArtObject>()
         val artCollectionResponse = mock<ArtCollectionResponse> {
             on { artObjects } doReturn listOf(artObject)
@@ -90,18 +91,17 @@ class CollectionInteractorTest {
         }
 
         `when`(collectionRepository.getCollection(pageIndex = anyInt())).thenReturn(
-            Single.just(
-                artCollectionResponse
-            )
+            artCollectionResponse
         )
+
         `when`(artDataMapper.mapToArtEntity(artObject)).thenReturn(artViewData)
 
-        val testObserver = collectionInteractor.getArtCollectionByMaker(1).test()
+        val result = collectionInteractor.getArtCollectionByMaker(1)
 
-        testObserver
-            .assertNoErrors()
-            .assertComplete()
-        Assert.assertEquals(Result.Success(mapOf("artist" to listOf(artViewData))), testObserver.values()[0])
+        Assert.assertEquals(
+            Result.Success(mapOf("artist" to listOf(artViewData))),
+            result
+        )
     }
 
     @Test

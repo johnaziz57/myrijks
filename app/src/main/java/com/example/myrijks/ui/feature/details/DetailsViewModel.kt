@@ -5,15 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import com.example.myrijks.domain.interactor.CollectionInteractor
 import com.example.myrijks.domain.model.details.ArtDetailsEntity
 import com.example.myrijks.ui.viewmodel.BaseViewModel
-import com.example.myrijks.ui.viewmodel.SchedulerProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class DetailsViewModel @Inject constructor(
     private val collectionInteractor: CollectionInteractor,
-    schedulerProvider: SchedulerProvider
-) : BaseViewModel(schedulerProvider) {
+) : BaseViewModel() {
 
     val artDetailsLiveData: LiveData<ArtDetailsEntity>
         get() = _artDetails
@@ -22,7 +20,7 @@ class DetailsViewModel @Inject constructor(
 
     fun getArtObjectDetails(artObjectId: String) {
         execute(
-            single = collectionInteractor.getArtObjectDetails(artObjectId),
+            coroutineCall = { collectionInteractor.getArtObjectDetails(artObjectId) },
             onSuccess = { _artDetails.value = it }
         )
     }

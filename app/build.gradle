@@ -35,9 +35,6 @@ android {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = '17'
-    }
 }
 
 dependencies {
@@ -48,11 +45,6 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.7.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0'
     implementation "androidx.fragment:fragment-ktx:1.6.2"
-
-    // RxJava
-    implementation "io.reactivex.rxjava3:rxandroid:3.0.0"
-    implementation "io.reactivex.rxjava3:rxjava:3.1.5"
-    implementation "io.reactivex.rxjava3:rxkotlin:3.0.1"
 
     // Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
@@ -85,6 +77,7 @@ dependencies {
     testImplementation "androidx.test:core-ktx:1.5.0"
     testImplementation "org.robolectric:robolectric:4.8.1"
     testImplementation "androidx.arch.core:core-testing:2.2.0"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
 }

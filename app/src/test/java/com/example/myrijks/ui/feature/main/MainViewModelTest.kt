@@ -8,9 +8,9 @@ import com.example.myrijks.domain.util.Result
 import com.example.myrijks.ui.feature.getOrAwaitValue
 import com.example.myrijks.ui.feature.main.model.ArtItemWrapper
 import com.example.myrijks.ui.feature.main.model.MakerItemWrapper
-import com.example.myrijks.ui.viewmodel.TestSchedulerProviderImpl
-import io.reactivex.rxjava3.core.Single
-import org.junit.Assert.*
+import kotlinx.coroutines.test.runTest
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -30,22 +30,19 @@ class MainViewModelTest {
     @Mock
     lateinit var collectionInteractor: CollectionInteractor
 
-    private val schedulerProvider = TestSchedulerProviderImpl()
 
     @Test
-    fun `load collection`() {
-        val mainViewModel = MainViewModel(collectionInteractor, schedulerProvider)
+    fun `load collection`() = runTest {
+        val mainViewModel = MainViewModel(collectionInteractor)
 
         val artViewData = mock<ArtEntity> {
             on { principalOrFirstMaker } doReturn "maker"
         }
         val map = mapOf("maker" to listOf(artViewData))
         `when`(collectionInteractor.getArtCollectionByMaker(anyInt())).thenReturn(
-            Single.just(
                 Result.Success(
                     map
                 )
-            )
         )
 
         mainViewModel.loadNextCollection()
@@ -62,16 +59,14 @@ class MainViewModelTest {
     }
 
     @Test
-    fun `load collection two times`() {
-        val mainViewModel = MainViewModel(collectionInteractor, schedulerProvider)
+    fun `load collection two times`() = runTest {
+        val mainViewModel = MainViewModel(collectionInteractor)
 
         val map = mock<ArtEntityMap>()
         `when`(collectionInteractor.getArtCollectionByMaker(anyInt())).thenReturn(
-            Single.just(
                 Result.Success(
                     map
                 )
-            )
         )
 
         mainViewModel.loadNextCollection()
@@ -81,19 +76,17 @@ class MainViewModelTest {
     }
 
     @Test
-    fun `load collection two times and with same maker`() {
-        val mainViewModel = MainViewModel(collectionInteractor, schedulerProvider)
+    fun `load collection two times and with same maker`() = runTest {
+        val mainViewModel = MainViewModel(collectionInteractor)
 
         val artViewData1 = mock<ArtEntity> {
             on { id } doReturn "1"
         }
         val map1 = mapOf("maker" to listOf(artViewData1))
         `when`(collectionInteractor.getArtCollectionByMaker(1)).thenReturn(
-            Single.just(
                 Result.Success(
                     map1
                 )
-            )
         )
 
         val artViewData2 = mock<ArtEntity> {
@@ -101,11 +94,10 @@ class MainViewModelTest {
         }
         val map2 = mapOf("maker" to listOf(artViewData2))
         `when`(collectionInteractor.getArtCollectionByMaker(2)).thenReturn(
-            Single.just(
                 Result.Success(
                     map2
                 )
-            )
+
         )
 
         mainViewModel.loadNextCollection()
@@ -130,19 +122,18 @@ class MainViewModelTest {
     }
 
     @Test
-    fun `load collection two times and with different makers`() {
-        val mainViewModel = MainViewModel(collectionInteractor, schedulerProvider)
+    fun `load collection two times and with different makers`() = runTest {
+        val mainViewModel = MainViewModel(collectionInteractor)
 
         val artViewData1 = mock<ArtEntity> {
             on { id } doReturn "1"
         }
         val map1 = mapOf("maker1" to listOf(artViewData1))
         `when`(collectionInteractor.getArtCollectionByMaker(1)).thenReturn(
-            Single.just(
                 Result.Success(
                     map1
                 )
-            )
+
         )
 
         val artViewData2 = mock<ArtEntity> {
@@ -150,11 +141,10 @@ class MainViewModelTest {
         }
         val map2 = mapOf("maker2" to listOf(artViewData2))
         `when`(collectionInteractor.getArtCollectionByMaker(2)).thenReturn(
-            Single.just(
                 Result.Success(
                     map2
                 )
-            )
+
         )
 
         mainViewModel.loadNextCollection()
