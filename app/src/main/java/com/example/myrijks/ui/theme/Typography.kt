@@ -26,7 +26,7 @@ val MyRijksTypography = Typography(
         fontFamily = RobotoFontFamily
     ),
     bodySmall = TextStyle(
-        fontSize = 12.sp,
+        fontSize = 14.sp,
         fontFamily = RobotoFontFamily
     )
 )
