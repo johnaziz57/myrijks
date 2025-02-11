@@ -68,6 +68,12 @@
                 app:layout_constraintTop_toBottomOf="@id/text_view_subtitle"
                 tools:text="ScLabelLine ScLabelLine ScLabelLine ScLabelLine ScLabelLine ScLabelLine ScLabelLine ScLabelLine ScLabelLine ScLabelLine ScLabelLine ScLabelLine" />
 
+            <androidx.compose.ui.platform.ComposeView
+                android:id="@+id/compose_vertical_sections"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_view_scLabelLine" />
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/linear_layout_sections"
                 android:layout_width="match_parent"

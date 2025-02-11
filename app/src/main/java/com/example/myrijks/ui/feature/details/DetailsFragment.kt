@@ -1,9 +1,12 @@
 package com.example.myrijks.ui.feature.details
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.widget.LinearLayoutCompat
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -66,50 +69,52 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
                 textViewSubtitle.text = viewData.subTitle
                 textViewScLabelLine.text = viewData.scLabelLine
 
-                fun createSection(context: Context, header: String, description: String): View {
-                    val sectionView = SectionView(context)
-                    sectionView.layoutParams = LinearLayoutCompat.LayoutParams(
-                        LinearLayoutCompat.LayoutParams.MATCH_PARENT,
-                        LinearLayoutCompat.LayoutParams.WRAP_CONTENT
-                    )
-                    sectionView.setSectionData(header, description)
-                    return sectionView
-                }
+                composeVerticalSections.setContent {
+                    Column(Modifier
+                        .fillMaxWidth()
+                        .padding(4.dp)) {
+                        if (viewData.description.isNotBlank()) {
+                            SectionView("Description", viewData.description)
+                            SectionDividerView()
+                        }
 
-                fun addSection(context: Context, header: String, description: String) {
-                    linearLayoutSections.addView(createSection(context, header, description))
-                }
+                        if (viewData.principalMakers.isNotEmpty()) {
+                            SectionView(
+                                "Maker(s)",
+                                viewData.principalMakers.joinToString("\n")
+                            )
+                            SectionDividerView()
+                        }
 
-                if (viewData.description.isNotBlank()) {
-                    addSection(view.context, "Description", viewData.description)
-                }
+                        if (viewData.physicalMedium.isNotBlank()) {
+                            SectionView(
+                                "Physical Medium",
+                                viewData.physicalMedium
+                            )
+                            SectionDividerView()
+                        }
 
-                if (viewData.principalMakers.isNotEmpty()) {
-                    addSection(
-                        view.context,
-                        "Maker(s)",
-                        viewData.principalMakers.joinToString("\n")
-                    )
-                }
+                        if (viewData.dimensionDescription.isNotBlank()) {
+                            SectionView(
+                                "Dimensions",
+                                viewData.dimensionDescription
+                            )
+                            SectionDividerView()
+                        }
 
-                if (viewData.physicalMedium.isNotBlank()) {
-                    addSection(view.context, "Physical Medium", viewData.physicalMedium)
-                }
+                        if (viewData.dating.isNotBlank()) {
+                            SectionView("Dating", viewData.dating)
+                            SectionDividerView()
+                        }
 
-                if (viewData.dimensionDescription.isNotBlank()) {
-                    addSection(view.context, "Dimensions", viewData.dimensionDescription)
-                }
-
-                if (viewData.dating.isNotBlank()) {
-                    addSection(view.context, "Dating", viewData.dating)
-                }
-
-                if (viewData.productionPlacesDescription.isNotBlank()) {
-                    addSection(
-                        view.context,
-                        "Production Place(s)",
-                        viewData.productionPlacesDescription
-                    )
+                        if (viewData.productionPlacesDescription.isNotBlank()) {
+                            SectionView(
+                                "Production Place(s)",
+                                viewData.productionPlacesDescription
+                            )
+                            SectionDividerView()
+                        }
+                    }
                 }
             }
         }
